@@ -3,3 +3,8 @@ Thumbs.db
 .env
 .env.*
 node_modules/
+
+design/posters/build/
+.venv/
+__pycache__/
+*.pyc
