@@ -3,8 +3,8 @@
 const chapters = [
   {
     "title": "三产品总览",
-    "description": "数据体检、数据治理、问询数据响应，可单独选择，也可按体检 → 治理 → 问询响应组合，覆盖从辅导期到审核问询的数据需要。",
-    "alt": "01 三产品总览：让数据说得清，让问询有依据。"
+    "description": "数据体检先找到问题，交付风险体检报告；数据治理还原历史成本，交付逐品号明细与依据；问询数据响应解释具体数字，交付问询数据证据包。三项服务可单独选择，也可按实际需要衔接。",
+    "alt": "01 三产品总览：让数据说得清，让追问有依据。"
   },
   {
     "title": "为什么用AI",
@@ -13,17 +13,17 @@ const chapters = [
   },
   {
     "title": "数据体检",
-    "description": "程序批量检查采购、领料、生产、库存、成本及主数据的勾稽关系，AI 逐类归因。交付 IPO 数据风险体检报告，说明问题定位、影响范围及治理建议，供企业和券商安排后续工作。",
-    "alt": "03 数据体检：先看清风险，再决定怎么治理。"
+    "description": "从采购、领料、生产、库存、成本及主数据之间的勾稽关系入手，先定位数据疑点。交付风险体检报告，列明问题位置、影响范围和治理建议，帮助企业与券商判断处理范围；体检后不必然购买治理。",
+    "alt": "03 数据体检：先看清问题，再决定怎么处理。"
   },
   {
     "title": "数据治理",
-    "description": "处理同物多码、领料偏离配方、入库缺价、补录与库存不符四类矛盾。先重算数量，再在锁定的数量上逐级算金额；交付三年逐品号明细、来源说明、调整留痕台账、残差清单与可重跑规则集。",
-    "alt": "04 数据治理：先把数量对齐，再把金额算清。"
+    "description": "沿生产与加工链梳理记录，先核对数量，再按确认后的口径计算成本。交付三年逐品号明细、来源说明、调整留痕台账、残差清单和可重跑规则；无法解释的差额单独列明，关键依据与会计口径由专业人员确认。",
+    "alt": "04 数据治理：先把数量对齐，再把成本算清。"
   },
   {
     "title": "问询数据响应",
-    "description": "围绕毛利变化等数据类问询，AI 拆解可验证的子问题，程序沿 ERP、BOM、采购、生产与财务取数和重算，形成附来源单据、计算规则及中间结果的证据包，供券商、会计师撰写回复。",
+    "description": "围绕具体数字，把问题连接到来源单据、计算过程和数据底稿，交付问询数据证据包。已有治理成果可复用，缺少依据时按涉及范围做针对性还原；供券商、会计师撰写回复，不替代专业判断，也不承诺审核结果。",
     "alt": "05 问询数据响应：问到哪笔数据，就追到哪条依据。"
   },
   {
@@ -33,8 +33,8 @@ const chapters = [
   },
   {
     "title": "开始合作",
-    "description": "辅导期可从数据体检开始，申报前做数据治理，审核问询时准备数据证据。企业提供现有系统数据，并确认关键事实与口径；双方根据数据范围、复杂程度和目标节点约定服务，可单独签约或组合推进。",
-    "alt": "07 开始合作：从您的阶段，选择需要的服务。"
+    "description": "从当前最需要解释的问题出发，选择数据体检、数据治理或问询数据响应。提供已有数据，共同确认问题，再约定服务范围；三项服务可单选或衔接。本地部署，不更换原 ERP，企业主要提供数据并确认关键事实与口径。",
+    "alt": "07 开始合作：从当前难题，找到合作起点。"
   }
 ];
 
@@ -61,7 +61,7 @@ function selectChapter(index, { focus = false, updateHash = false } = {}) {
     tab.setAttribute('aria-selected', String(active));
     tab.tabIndex = active ? 0 : -1;
   });
-  poster.src = `assets/posters/${number}.webp?v=14`;
+  poster.src = `assets/posters/${number}.webp?v=15`;
   poster.alt = chapter.alt;
   expandedPoster.src = poster.src;
   expandedPoster.alt = chapter.alt;
@@ -69,8 +69,8 @@ function selectChapter(index, { focus = false, updateHash = false } = {}) {
   document.getElementById('poster-counter').textContent = number;
   document.getElementById('chapter-category').textContent = chapter.title;
   document.getElementById('chapter-description').textContent = chapter.description;
-  document.getElementById('single-download').href = `assets/posters/${number}.pdf?v=14`;
-  document.getElementById('single-image-download').href = `assets/posters/${number}.png?v=14`;
+  document.getElementById('single-download').href = `assets/posters/${number}.pdf?v=15`;
+  document.getElementById('single-image-download').href = `assets/posters/${number}.png?v=15`;
   document.getElementById('poster-prev').disabled = current === 0;
   document.getElementById('poster-next').disabled = current === chapters.length - 1;
 

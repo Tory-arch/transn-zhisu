@@ -4,7 +4,7 @@
 
 - [源码仓库](https://github.com/Tory-arch/transn-zhisu)
 - [在线网站](https://tory-arch.github.io/transn-zhisu/)
-- [v1.2.2 可编辑包](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.2.2/transn-zhisu-editable-v1.2.2.zip)
+- [v1.3.0 可编辑包](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.3.0/transn-zhisu-editable-v1.3.0.zip)
 
 ## 下载后直接修改
 
@@ -31,6 +31,7 @@ git switch -c update-site
 | 三产品交付切换、产品分享锚点与合作服务预选 | `products.js` |
 | 页面通用布局、交互与沟通清单 | `styles.css`、`app.js` |
 | AI 用料差异插图（网站与第 02 张海报共用） | `assets/material-discrepancy.webp`、`assets/material-discrepancy.png`；[生成说明](docs/material-discrepancy-prompt.md) |
+| 海报三项服务与案例插图 | `assets/service-check.png`、`assets/service-governance.png`、`assets/service-inquiry.png`、`assets/case-factory.png`；[生成说明](docs/service-image-prompts.md) |
 | AI 分工与诊断—规则—试算—复核循环 | `index.html` 的 `#method`、`ai-value.css` |
 | 四类业务问题的内容与切换 | `business-scenes.js`、`business-scenes.css`，以及 `index.html` 的 `#challenges` 初始内容 |
 | 七张海报的章节、说明、下载与直达链接 | `story.html`、`story.css`、`story.js` |
@@ -39,7 +40,9 @@ git switch -c update-site
 | PNG 导出图 | `design/posters/exports/01.png`—`07.png`、`overview.png` |
 | 销售话术和业务图稿 | [docs/sales-notes.md](docs/sales-notes.md)、[docs/pain-image-prompts.md](docs/pain-image-prompts.md) |
 
-品牌统一使用 **传神智溯**。三产品为 **IPO 数据体检、IPO 数据治理、IPO 问询数据响应**。七张海报顺序固定为 **01 总览 → 02 AI → 03 体检 → 04 治理 → 05 问询 → 06 案例 → 07 合作**。
+品牌统一使用 **传神智溯**。三产品为 **IPO 数据体检、IPO 数据治理、IPO 问询数据响应**。七张海报顺序固定为 **01 总览 → 02 AI → 03 体检 → 04 治理 → 05 问询 → 06 案例 → 07 合作**。这是讲述顺序，不是购买顺序：三项服务按实际需要选择，可单选或衔接，不把项目阶段写成某一产品的准入限制。
+
+海报使用统一的蓝白业务插图，以少量文字说明问题和交付。三项服务图用于总览、对应产品及合作入口，工厂图用于匿名案例；不要把示意图解释为真实客户单据或已确认损失。
 
 更新海报后同步生成源码、网页说明、PDF、WebP 和 PNG。保留 `story.html#poster-01` 至 `#poster-07` 的章节含义；批量替换素材时，更新相应资源版本参数，避免访问者看到旧缓存。
 
@@ -57,7 +60,7 @@ python3 -m http.server 8080
 
 打开 `http://localhost:8080/` 与 `http://localhost:8080/story.html`，结束时按 `Ctrl+C`。仅预览网站无需安装海报依赖；重新生成海报才需按[海报制作说明](design/posters/README.md)准备 Python 库、字体和可选渲染工具。
 
-按实际改动检查对应部分：三产品的名称、适用阶段和交付是否一致；桌面与手机布局是否可读；七个海报章节、图片、单张及合集下载是否对应；带章节编号的直达链接是否正确。资源引用保留相对路径，避免使用 `/assets/` 这样的站点根路径。
+按实际改动检查对应部分：三产品的名称、适用需求和交付是否一致；桌面与手机布局是否可读；七个海报章节、图片、单张及合集下载是否对应；带章节编号的直达链接是否正确。资源引用保留相对路径，避免使用 `/assets/` 这样的站点根路径。
 
 ### 4. 提交修改
 

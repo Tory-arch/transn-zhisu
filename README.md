@@ -3,7 +3,7 @@
 面向拟上市制造企业及券商项目组的 IPO 数据服务网站：**数据体检、数据治理、问询数据响应**。本仓库提供可编辑的静态网站、七张故事海报、导出素材和海报生成源码。
 
 - **在线浏览**：[传神智溯官网](https://tory-arch.github.io/transn-zhisu/)（公开访问，无需登录）
-- **下载可编辑包**：[v1.2.2 完整 ZIP](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.2.2/transn-zhisu-editable-v1.2.2.zip)（无需登录，解压后可修改）
+- **下载可编辑包**：[v1.3.0 完整 ZIP](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.3.0/transn-zhisu-editable-v1.3.0.zip)（无需登录，解压后可修改）
 - **源码仓库**：[Tory-arch/transn-zhisu](https://github.com/Tory-arch/transn-zhisu)
 - **故事海报**：[七张海报](https://tory-arch.github.io/transn-zhisu/story.html)
 - **参与修改**：[协作指南](CONTRIBUTING.md)（Fork → 本地编辑 → 预览 → Pull Request）
@@ -14,7 +14,7 @@
 
 | 产品 | 适用需求 | 主要交付与边界 |
 | --- | --- | --- |
-| **IPO 数据体检** | 辅导、尽调或前期梳理时，先了解跨系统数据能否勾稽、哪些问题缺少解释依据 | 数据风险体检报告：问题定位、分级、治理建议及工作量评估；体检后不必然进入治理 |
+| **IPO 数据体检** | 先了解跨系统数据能否勾稽，定位问题与缺失依据，判断处理范围 | 风险体检报告：问题定位、影响范围与治理建议；体检后不必然进入治理 |
 | **IPO 数据治理** | 历史数据互相矛盾，需要形成可复核的逐品号进耗存与成本明细 | 三年逐品号明细、来源说明、调整留痕台账、残差清单、可重跑规则集 |
 | **IPO 问询数据响应** | 围绕具体问询，查找来源单据、核对计算过程并整理底稿 | 问询数据证据包；供券商、会计师编写回复，不替代专业机构撰写回复或作出审计判断 |
 
@@ -26,15 +26,15 @@ AI 的价值在于读取诊断、梳理线索、推断矛盾成因并提出规�
 
 | 编号 | 主题 | 讲述重点 |
 | --- | --- | --- |
-| 01 | 服务总览 | 体检、治理、问询数据响应，按需要选择或组合 |
+| 01 | 服务总览 | 让数据说得清，让追问有依据。三张图对应三项服务与交付，可单选可衔接 |
 | 02 | 为什么用 AI | 以 A/B 用料差异为起点，AI 提出候选解释、程序试算、AI 反查修正，专业确认并留痕 |
-| 03 | 数据体检 | 先定位数据疑点，判断是否需要治理及工作范围 |
-| 04 | 数据治理 | 还原三年逐品号明细，交付来源、留痕、残差与规则 |
-| 05 | 问询数据响应 | 将具体问题展开为来源、计算过程和数据底稿 |
-| 06 | 客户实践 | 已交付治理案例的复杂度、处理过程与可核对依据 |
-| 07 | 开始合作 | 说明当前阶段、现有数据与关键确认事项，再评估方案 |
+| 03 | 数据体检 | 先看清问题，再决定怎么处理。台账与放大镜对应问题定位、影响范围和治理建议 |
+| 04 | 数据治理 | 先把数量对齐，再把成本算清。从加工链到成本台账，交付三年明细、来源、留痕、残差与规则 |
+| 05 | 问询数据响应 | 问到哪笔数据，就追到哪条依据。从问题追到来源，交付问询数据证据包 |
+| 06 | 客户实践 | 百万行数据，追到每笔调整的依据。多层工厂呈现复杂度，保留案例范围与残差口径 |
+| 07 | 开始合作 | 从当前难题，找到合作起点。提供已有数据、共同确认问题、约定服务范围 |
 
-七张海报包含网页 WebP、单张 PDF、合订 PDF 和 PNG 导出图。网页可用 `story.html#poster-01` 至 `#poster-07` 直达指定章节；例如 [为什么用 AI](https://tory-arch.github.io/transn-zhisu/story.html#poster-02)。服务总览单页 PDF 位于 `assets/zhisu-poster.pdf`。
+海报以统一的蓝白业务插图讲故事，少量文字说明问题、处理和交付。第 02 张沿用已认可的用料差异插图与文案；其余六张围绕三项服务与客户实践重排。七张海报包含网页 WebP、单张 PDF、合订 PDF 和 PNG 导出图。网页可用 `story.html#poster-01` 至 `#poster-07` 直达指定章节；例如 [为什么用 AI](https://tory-arch.github.io/transn-zhisu/story.html#poster-02)。服务总览单页 PDF 位于 `assets/zhisu-poster.pdf`。
 
 网站还保留四类业务问题示意：多套编号、领料偏离配方、入库缺价、库存不符。场景图是解释业务问题的辅助素材，其编号独立于海报章节。销售演示与沟通清单在浏览器本地运行，不自动上传或发送企业信息。
 
@@ -49,6 +49,7 @@ AI 的价值在于读取诊断、梳理线索、推断矛盾成因并提出规�
 | AI 分工与工作循环 | `index.html` 的 `#method` 段、[ai-value.css](ai-value.css) |
 | 四类业务问题的分类、说明与切换 | [business-scenes.js](business-scenes.js)、[business-scenes.css](business-scenes.css)，以及 `index.html` 的 `#challenges` 初始内容 |
 | AI 用料差异插图 | `assets/material-discrepancy.webp`（网页）、`assets/material-discrepancy.png`（第 02 张海报共用原图）；[生成说明](docs/material-discrepancy-prompt.md) |
+| 三项服务与案例插图 | `assets/service-check.png`、`assets/service-governance.png`、`assets/service-inquiry.png`、`assets/case-factory.png`；[生成说明](docs/service-image-prompts.md) |
 | 四张业务图片 | `assets/pain-identity.png`、`pain-recipe.png`、`pain-price.png`、`pain-stock.png` |
 | 海报展厅的章节、说明与交互 | [story.html](story.html)、[story.css](story.css)、[story.js](story.js) |
 | 海报网页图与 PDF | `assets/posters/01.webp`—`07.webp`、`01.pdf`—`07.pdf`、`zhisu-story.pdf`；首页单页为 `assets/zhisu-poster.pdf` |
@@ -71,7 +72,7 @@ python3 -m http.server 8080
 
 ## 发布与版本
 
-GitHub Pages 从 `main` 分支的根目录发布，保留 `.nojekyll`。修改合入 `main` 后会触发站点更新；本地修改、Fork 或提交 PR 本身不会改变官网。可编辑发布包使用版本号固定内容，v1.2.2 的下载地址见本页顶部。
+GitHub Pages 从 `main` 分支的根目录发布，保留 `.nojekyll`。修改合入 `main` 后会触发站点更新；本地修改、Fork 或提交 PR 本身不会改变官网。可编辑发布包使用版本号固定内容，v1.3.0 的下载地址见本页顶部。
 
 ## 公开内容边界
 
