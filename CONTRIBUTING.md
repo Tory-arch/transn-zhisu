@@ -4,7 +4,7 @@
 
 - [源码仓库](https://github.com/Tory-arch/transn-zhisu)
 - [在线网站](https://tory-arch.github.io/transn-zhisu/)
-- [v1.2.0 可编辑包](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.2.0/transn-zhisu-editable-v1.2.0.zip)
+- [v1.2.1 可编辑包](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.2.1/transn-zhisu-editable-v1.2.1.zip)
 
 ## 下载后直接修改
 
@@ -30,6 +30,7 @@ git switch -c update-site
 | 三产品布局、AI 过程与案例样式 | `products.css` |
 | 三产品交付切换、产品分享锚点与合作服务预选 | `products.js` |
 | 页面通用布局、交互与沟通清单 | `styles.css`、`app.js` |
+| AI 用料差异插图 | `assets/material-discrepancy.webp`、`assets/material-discrepancy.png`；[生成说明](docs/material-discrepancy-prompt.md) |
 | AI 分工与诊断—规则—试算—复核循环 | `index.html` 的 `#method`、`ai-value.css` |
 | 四类业务问题的内容与切换 | `business-scenes.js`、`business-scenes.css`，以及 `index.html` 的 `#challenges` 初始内容 |
 | 七张海报的章节、说明、下载与直达链接 | `story.html`、`story.css`、`story.js` |
