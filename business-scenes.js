@@ -1,29 +1,127 @@
 (() => {
-'use strict';
-const root=document.getElementById('business-scenes');
-if(!root)return;
-let lastScene='identity';
-function alignScene(){root.scrollIntoView({block:'start',behavior:'instant'});}
-const scenes={identity:{name:'多套编号',number:'01',title:'三个编号，如何对应同一种物料？',subtitle:'保留原始记录，依据品号对照关系，把采购、生产与财务串起来。',result:'同一物料，在三个部门之间有据可查。',foot:'展示的是对应关系，不覆盖原始单据中的编号。'},recipe:{name:'领料偏配方',number:'02',title:'多出的 7 kg，差在哪里？',subtitle:'把配方、领料与退料放在一起，先把净投入核对清楚。',result:'差异算得清，也能找到原始单据。',foot:'示例差额需进一步确认，不直接改写实际领料数据。'},price:{name:'入库缺价',number:'03',title:'少了入库价，成本怎样接续？',subtitle:'先找到适用的价格依据，再按规则接续后续加工成本。',result:'每一笔还原，都能说明采用了什么依据。',foot:'缺少可靠依据的记录，单独列为待确认。'},stock:{name:'库存不符',number:'04',title:'台账 65 件，库存为何只有 62 件？',subtitle:'展开进耗存与手工补录，逐项核对差额从哪里来。',result:'调整有记录，尚未解释的差额单独列明。',foot:'补录是否有效需核实，不把未解释差异直接归因于补录。'}};
-const overview=document.getElementById('scene-overview'),detail=document.getElementById('scene-detail'),dialog=document.getElementById('scene-source-dialog');
-const check='<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10l4 4 8-8"/></svg>';
-function record(dept,source,code){return `<article class="record"><div class="record-head"><strong>${dept}</strong><span>${source}</span></div><div class="record-code">${code}</div><dl><dt>物料</dt><dd class="matched">铝板</dd><dt>规格</dt><dd class="matched">6061 · 2 mm</dd><dt>单位</dt><dd class="matched">kg</dd></dl></article>`;}
-function identity(){return `<div class="record-grid">${record('采购记录','采购单 CG-001','MAT-028')}${record('生产记录','领料单 LL-001','YL-028A')}${record('财务台账','明细账 CW-001','000028')}</div><div class="evidence-join"><svg class="connectors" viewBox="0 0 1000 73" preserveAspectRatio="none" aria-hidden="true"><path d="M155 0V15Q155 20 160 20H840Q845 20 845 15V0M500 0V73"/><circle cx="155" cy="1" r="3"/><circle cx="500" cy="1" r="3"/><circle cx="845" cy="1" r="3"/></svg><button class="join-source" id="view-source"><span>依据</span> 企业品号对照表 <b>↗</b></button></div><div class="unified"><div class="check-mark">✓</div><div><div class="unified-id"><small>对应同一物料</small><strong>6061 铝板</strong></div><p>统一品号 ZS-M028 · 2 mm · kg</p></div><div class="originals">三套原编号<br>完整保留</div></div><div class="evidence-summary"><div><strong>名称、规格与计量单位，交叉核对。</strong><p>以示例品号对照表为映射依据，每条原始记录均可追溯。</p></div><span class="evidence-trace">采购单 / 领料单 / 财务明细账</span></div>`;}
-const line=(a,b,cls='')=>`<div class="ledger-line ${cls}"><span>${a}</span><b>${b}</b></div>`;
-function comparison(id){if(id==='recipe')return `<div class="compare-view"><article class="compare-block"><h3>配方依据 · 工单 GD-001</h3>${line('本次标准投入','100 kg')}${line('配方版本','V1')}${line('计量单位','kg')}</article><article class="compare-block"><h3>同一工单的实际记录</h3>${line('领料单 LL-002','112 kg')}${line('退料单 TL-001','− 5 kg')}${line('净领料','107 kg','total')}</article></div><div class="result-strip"><strong>差异 7 kg · 待确认</strong><p>107 kg − 100 kg = 7 kg，保留差异并核对业务原因。</p></div><div class="proof-list"><span>工单范围一致</span><span>配方版本可查</span><span>领退料来源保留</span></div>`;
-if(id==='price')return `<div class="compare-view"><article class="compare-block"><h3>原始入库记录 · RK-001</h3>${line('入库数量','200 kg')}${line('入库单价','缺失')}${line('后续加工成本','待接续','total')}</article><article class="compare-block"><h3>展开可用的价格依据</h3>${line('关联来源','采购记录 CG-002')}${line('示例价格依据','20 元 / kg')}${line('还原入库金额','4,000 元','total')}</article></div><div class="result-strip"><strong>先有依据，再做还原</strong><p>核对来源记录与计价规则，保留还原过程及影响范围。</p></div><div class="proof-list"><span>来源单据可查</span><span>计价规则有记录</span><span>缺少依据的单独列明</span></div>`;
-return `<div class="compare-view"><article class="compare-block"><h3>进耗存台账 · 示例期间</h3>${line('期初 100 + 入库 80 − 耗用 120','60 件')}${line('手工补录 · BL-001','+ 5 件')}${line('台账结存','65 件','total')}</article><article class="compare-block"><h3>期末库存核对</h3>${line('库存记录 KC-001','62 件')}${line('台账结存','65 件')}${line('待核对差额','3 件','total')}</article></div><div class="result-strip"><strong>3 件差额 · 单独列明</strong><p>追溯进耗存原单据和补录依据，未解释差异保留待确认。</p></div><div class="proof-list"><span>原始记录保留</span><span>补录前后值可查</span><span>差异进入残差清单</span></div>`;}
-function showScene(id,keyboard=false){const scene=scenes[id];if(!scene){showOverview();return;}lastScene=id;const entries=Object.entries(scenes),next=entries[(entries.findIndex(([k])=>k===id)+1)%entries.length];detail.innerHTML=`<div class="detail-top" id="scene-${id}"><button class="back"><span>←</span>四个业务现场</button><nav class="case-switch" aria-label="选择业务现场">${entries.map(([key,value])=>`<button data-scene="${key}" aria-current="${key===id}">${value.number} ${value.name}</button>`).join('')}</nav></div><div class="detail-intro"><div><div class="eyebrow">${scene.number} / 业务核对示例</div><h2 class="scene-heading" id="scene-detail-title" tabindex="-1">${scene.title}</h2><p>${scene.subtitle}</p></div><span class="detail-note">${check}原始记录完整保留</span></div><div class="evidence-stage">${id==='identity'?identity():comparison(id)}</div><div class="detail-footer"><div><strong>${scene.result}</strong><p>${scene.foot} 所有数据均为示例。</p></div><button class="next-case" data-scene="${next[0]}">下一个现场：${next[1].name}<span>→</span></button></div>`;overview.hidden=true;detail.hidden=false;detail.classList.remove('detail-enter');if(!keyboard){void detail.offsetWidth;detail.classList.add('detail-enter');}alignScene();if(keyboard)document.getElementById('scene-detail-title').focus({preventScroll:true});}
-function showOverview(scroll=true){detail.hidden=true;overview.hidden=false;if(scroll)alignScene();}
-root.addEventListener('click',e=>{const b=e.target.closest('[data-scene]');if(b){const id=b.dataset.scene;history.pushState(null,'','#scene-'+id);showScene(id,e.detail===0);}if(e.target.closest('.back')){e.preventDefault();history.pushState(null,'','#challenges');showOverview();overview.querySelector('[data-scene="'+lastScene+'"]')?.focus({preventScroll:true});}if(e.target.closest('#view-source'))dialog.showModal();if(e.target.closest('.source-close'))dialog.close();});
-dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
+  'use strict';
+  const root = document.getElementById('business-scenes');
+  if (!root) return;
 
-function currentScene(){const value=location.hash.slice(1);return value.startsWith('scene-')?value.slice(6):null;}
-function syncHash(){const id=currentScene();if(id&&scenes[id])showScene(id,true);else showOverview(['#challenges','#issue-panel'].includes(location.hash));}
-window.addEventListener('hashchange',syncHash);
-if(currentScene()&&scenes[currentScene()]){
-  showScene(currentScene(),true);
-  window.addEventListener('load',alignScene,{once:true});
-}
+  const scenes = {
+    identity: {
+      label: '01 / 多套编号',
+      title: '同一种物料，跨部门却接不上。',
+      description: '采购、生产、财务各用一套编号，同一物料的记录难以串联核对。',
+      facts: '采购 <span>MAT-028</span><i>·</i>生产 <span>YL-028A</span><i>·</i>财务 <span>000028</span>',
+      image: 'assets/pain-identity.png',
+      alt: '同一物料在采购、生产与财务中采用不同标识的业务场景示意'
+    },
+    recipe: {
+      label: '02 / 领料偏配方',
+      title: '多出的 7 kg，究竟差在哪里？',
+      description: '配方投入 100 kg，净领料 107 kg。差额 7 kg，仍需核对业务原因。',
+      facts: '<span>112 kg</span> 领料 − <span>5 kg</span> 退料 = <span>107 kg</span> 净领料',
+      image: 'assets/pain-recipe.png',
+      alt: '标准配方与实际领料出现差异、需要进一步核对的业务场景示意'
+    },
+    price: {
+      label: '03 / 入库缺价',
+      title: '入库有数量，成本却缺了起点。',
+      description: '200 kg 已入库，单价仍缺失。价格依据未明确，后续加工成本待接续。',
+      facts: '<span>200 kg</span> 入库 × 待确认单价 → 成本待接续',
+      image: 'assets/pain-price.png',
+      alt: '物料已经入库但缺少价格依据，后续成本链无法接续的业务场景示意'
+    },
+    stock: {
+      label: '04 / 库存不符',
+      title: '账上 65 件，库存为何只有 62 件？',
+      description: '台账与库存相差 3 件，需核对进耗存及补录依据，原因仍待确认。',
+      facts: '<span>65 件</span> 台账 − <span>62 件</span> 库存 = <span>3 件</span> 待核对差额',
+      image: 'assets/pain-stock.png',
+      alt: '台账结存与库存记录不一致，差额尚待确认的业务场景示意'
+    }
+  };
+  const tabs = [...root.querySelectorAll('[data-pain]')];
+  const tablist = root.querySelector('[role="tablist"]');
+  const panel = document.getElementById('pain-panel');
+  const image = document.getElementById('pain-image');
+  const imageFrame = root.querySelector('.pain-image-frame');
+  const imageStatus = root.querySelector('.pain-image-status');
+  const announcement = document.getElementById('pain-announcement');
+  const compact = matchMedia('(max-width: 850px)');
+  const prefetched = new Set();
+  let selected = null;
 
+  function setImageState(state) {
+    imageFrame.dataset.imageState = state;
+    imageFrame.setAttribute('aria-busy', String(state === 'loading'));
+    imageStatus.textContent = state === 'error' ? '场景图片暂时不可用，请参阅下方说明。' : '场景图片加载中…';
+  }
+  image.addEventListener('load', () => setImageState('ready'));
+  image.addEventListener('error', () => setImageState('error'));
+
+  function keyFromHash() {
+    const key = location.hash.startsWith('#scene-') ? location.hash.slice(7) : null;
+    return key && Object.hasOwn(scenes, key) ? key : null;
+  }
+  function selectScene(key, {push = false, focus = false, announce = false} = {}) {
+    const scene = scenes[key];
+    if (!scene) return;
+    const changed = selected !== key;
+    selected = key;
+    tabs.forEach(tab => {
+      const active = tab.dataset.pain === key;
+      tab.setAttribute('aria-selected', String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+    panel.setAttribute('aria-labelledby', `pain-tab-${key}`);
+    if (changed) {
+      document.getElementById('pain-scene-label').textContent = scene.label;
+      document.getElementById('pain-title').textContent = scene.title;
+      document.getElementById('pain-description').textContent = scene.description;
+      document.getElementById('pain-facts').innerHTML = scene.facts;
+      image.alt = scene.alt;
+      if (image.getAttribute('src') !== scene.image) {
+        setImageState('loading');
+        image.src = scene.image;
+      } else if (image.complete) setImageState(image.naturalWidth > 0 ? 'ready' : 'error');
+      if (announce) announcement.textContent = `已选择：${scene.title}`;
+    }
+    if (push && location.hash !== `#scene-${key}`) {
+      // A history update changes the shareable URL without native anchor scrolling.
+      history.pushState(null, '', `#scene-${key}`);
+    }
+    if (focus) document.getElementById(`pain-tab-${key}`).focus({preventScroll:true});
+  }
+  function preloadScene(key) {
+    const src = scenes[key].image;
+    if (prefetched.has(src)) return;
+    prefetched.add(src);
+    const preload = new Image();
+    preload.src = src;
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectScene(tab.dataset.pain, {push:true, announce:true}));
+    tab.addEventListener('pointerenter', () => preloadScene(tab.dataset.pain), {once:true});
+    tab.addEventListener('focus', () => preloadScene(tab.dataset.pain), {once:true});
+    tab.addEventListener('keydown', event => {
+      let next;
+      if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      event.stopPropagation();
+      selectScene(tabs[next].dataset.pain, {push:true, focus:true, announce:true});
+    });
+  });
+  function syncLocation() {
+    const key = keyFromHash();
+    if (key) selectScene(key);
+    else if (['', '#top', '#challenges', '#issue-panel'].includes(location.hash)) selectScene('identity');
+  }
+  // Back/forward may emit both events; selecting an unchanged scene is idempotent.
+  window.addEventListener('popstate', syncLocation);
+  window.addEventListener('hashchange', syncLocation);
+  function syncTabOrientation() { tablist.setAttribute('aria-orientation', compact.matches ? 'horizontal' : 'vertical'); }
+  compact.addEventListener('change', syncTabOrientation);
+  syncTabOrientation();
+  selectScene(keyFromHash() || 'identity');
 })();
