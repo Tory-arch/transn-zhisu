@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "assets"
 DEFAULT_OUTPUT = ROOT / "design" / "posters" / "build"
 DEFAULT_SITE_URL = "https://tory-arch.github.io/transn-zhisu/"
-VERSION = 6
+VERSION = 7
 W, H = 1120, 1584
 BLUE='#2468FF'; INK='#132448'; MUTED='#687A96'; LIGHT='#EFF5FF'; LINE='#DCE6F5'; AMBER='#E9A339'; WHITE='#FFFFFF'
 
@@ -126,7 +126,7 @@ def find_renderer(command):
 class Poster:
     def __init__(self,n,topic,filename,*,output_dir,assets_dir):
         self.assets_dir=assets_dir; self.n=n; self.path=output_dir/f'{filename}.pdf'; self.c=canvas.Canvas(str(self.path),pagesize=(841.8898,1190.5512))
-        self.c.setTitle(f'传神智溯 · {topic}');self.c.setAuthor('传神 · 智溯')
+        self.c.setTitle(f'传神智溯 · {topic}');self.c.setAuthor('传神智溯')
         self.c.scale(841.8898/W,1190.5512/H)
         self.rect(0,0,W,H,WHITE)
         self.c.drawImage(str(self.assets_dir/'transn-logo.png'),72,H-94,width=181,height=31,mask='auto')
@@ -158,7 +158,7 @@ class Poster:
     def title(self,lines,sub=None):
         self.lines(lines,72,189,70,INK,'B',86)
         if sub:self.lines(sub,72,394,25,MUTED,leading=38)
-    def footer(self,note='IPO 成本数据还原专项 · 传神智溯'):
+    def footer(self,note='IPO 数据服务 · 传神智溯'):
         self.line(72,1491,1048,1491,LINE)
         self.text(note,72,1515,17,MUTED)
         self.text(f'{self.n:02d} / 07' if self.n else 'SERVICE OVERVIEW',1048,1516,16,MUTED,'E',align='right')
@@ -181,163 +181,179 @@ def build_pdfs(output_dir, site_url):
     """Editable copy and 1120 × 1584 layout; exported PDF pages remain A3 portrait."""
     output_dir.mkdir(parents=True, exist_ok=True)
     make_poster = partial(Poster, output_dir=output_dir, assets_dir=ASSETS)
-    # 01 — Four recognizable contradictions.
-    p=make_poster(1,'业务难题','01-业务难题')
-    p.title(['数据都在，','成本为何对不上？'],['问题藏在记录之间。经过多层加工，差异会一路传递。'])
-    items=[('identity','同一物料，多套编号','采购、生产、财务，记录接不上。'),('recipe','领料记录，偏离配方','配方用量与净领料，存在待核对差异。'),('price','入库缺价，成本断层','上游缺少单价，后续成本难接续。'),('stock','手工补录，库存不符','历史单据与库存，需要重新梳理。')]
-    for i,(key,title,desc) in enumerate(items):
-        x=72+(i%2)*512;y=481+(i//2)*430
-        p.image(f'pain-{key}.png',x,y,464,309.33)
-        p.text(f'0{i+1}',x,y+326,18,BLUE,'EB');p.text(title,x+42,y+321,26,INK,'B')
-        p.text(desc,x,y+367,21,MUTED)
-    p.line(72,1340,1048,1340,LINE)
-    p.text('需要还原的，是三年逐品号的进、耗、存与成本。',72,1371,28,BLUE,'B')
-    p.text('图片为业务场景示意，非真实客户数据。',72,1430,18,MUTED)
+
+    # 01 — Three products, one continuous evidence chain.
+    p=make_poster(1,'三产品总览','01-三产品总览')
+    p.title(['让数据说得清，','让问询有依据。'],['从辅导期到审核问询，三项服务按需组合。'])
+    products=[('01','辅导期早期','数据体检','找到风险，定位问题。','交付 IPO 数据风险体检报告'),
+              ('02','申报前','数据治理','还原成本，保留来路。','交付三年逐品号明细、留痕与规则'),
+              ('03','审核问询','问询数据响应','逐问拆解，逐层追溯。','交付问询数据证据包')]
+    p.line(99,536,99,1150,'#BED0F4',2)
+    for i,(num,stage,name,value,delivery) in enumerate(products):
+        y=504+i*243
+        p.circle(99,y+27,27,BLUE);p.text(num,99,y+15,23,WHITE,'EB','center')
+        p.text(stage,151,y+5,20,BLUE,'B')
+        p.text(name,151,y+47,43,INK,'B')
+        p.text(value,151,y+116,28,INK)
+        p.text(delivery,151,y+163,23,MUTED)
+        if i<2:p.line(151,y+220,1048,y+220,LINE)
+    p.rect(72,1252,976,172,BLUE,18)
+    p.text('可单独选择，也可组合推进。',108,1291,36,WHITE,'B')
+    p.text('先体检 → 再治理 → 问询响应，按企业当前需要开始。',108,1362,23,'#E0EAFF')
     paths=[p.finish()]
 
-    # 02 — Why AI: one chain multiplied by scope and time.
+    # 02 — A concrete, falsifiable AI inference loop.
     p=make_poster(2,'为什么用 AI','02-为什么用AI')
-    p.title(['一笔成本，','要追多远？'],['核清一笔，要跨多张单据；还原全局，要贯穿三年。'])
-    p.text('一条成本链，要核对这些环节',72,503,24,BLUE,'B')
-    nodes=['采购','领退料','工单','半成品','委外','入库']
-    for i,label in enumerate(nodes):
-        x=72+i*167
-        p.rect(x,563,141,155,LIGHT,12)
-        p.text(f'0{i+1}',x+20,586,17,BLUE,'EB')
-        p.text(label,x+20,632,26,INK,'B')
-        if i<5:p.arrow(x+146,640,x+163)
-    p.text('同样的追查，在不同品号、不同加工层级重复发生。',72,754,25,MUTED)
-    for row in range(3):
-        y=835+row*92
-        p.text(f'第 {row+1} 年',72,y+14,24,INK,'B')
-        p.line(222,y+28,1048,y+28,LINE,2)
-        for col in range(13):
-            x=233+col*66
-            p.circle(x,y+28,10,BLUE if col in [2+row,6+row,11-row] else '#C7D8F6')
-            if col in [2+row,6+row,11-row]:p.circle(x,y+28,4,WHITE)
-    p.text('示意：三年、多品号、多层级的关联追查',72,1120,18,MUTED)
-    p.rect(72,1200,976,230,BLUE,18)
-    p.lines(['让 AI 承接海量追查，','让专家聚焦关键判断。'],108,1234,42,WHITE,'B',57)
-    p.text('AI 梳理线索与待确认事项，专业人员确认关键事实与口径。',108,1373,22,'#DCE7FF')
+    p.title(['AI 的价值，','是把疑点追到底。'],['BOM 写的是 A 料，车间实际领了 B 料。是不是替代？'])
+    for x,label,letter,caption in [(72,'BOM 配方','A','要求领用的物料'),(584,'工单领料','B','实际投入的物料')]:
+        p.rect(x,500,464,204,LIGHT,16)
+        p.text(label,x+28,525,21,MUTED)
+        p.text(letter,x+28,569,80,BLUE,'EB')
+        p.text(caption,x+141,600,25,INK,'B')
+    p.text('有差异，不等于有答案。把假设写成规则，再用结果检验。',72,750,25,INK)
+    stages=[('推断','识别替代线索'),('规则','明确判断条件'),('试算','程序逐笔重跑'),('校验','对照成本结果'),('修正','排除不成立项')]
+    for i,(title,desc) in enumerate(stages):
+        x=72+i*199
+        p.circle(x+24,853,24,BLUE if i<4 else INK)
+        p.text(str(i+1),x+24,840,25,WHITE,'EB','center')
+        if i<4:p.arrow(x+61,853,x+180,'#AFC7F5',2)
+        p.text(title,x,901,31,INK,'B');p.text(desc,x,953,20,MUTED)
+    p.rect(72,1055,976,229,LIGHT,18)
+    p.text('已交付案例',104,1085,18,BLUE,'B')
+    p.text('4,000+',104,1123,74,BLUE,'EB')
+    p.text('每年识别替代用料关系',104,1218,23,INK,'B')
+    p.lines(['用成本结果反向检验：','价差过大的“替代”不成立，','排除后再试算。'],570,1108,25,INK,leading=43)
+    p.text('AI 推断与写规则，程序计算，人确认关键口径。',72,1340,29,BLUE,'B')
+    p.text('会计口径、计价依据，由企业及相关专业人员确认。',72,1401,22,MUTED)
     paths.append(p.finish())
 
-    # 03 — One job per specialized agent, not a mysterious black box.
-    p=make_poster(3,'专项智能体','03-专项智能体')
-    p.title(['一个难题，','一个专项智能体。'])
-    p.text('100',72,401,184,BLUE,'EB');p.text('+',383,425,105,BLUE,'E')
-    p.text('专项智能体',540,455,42,INK,'B')
-    p.lines(['完整清洗服务调用，','按企业数据问题配置。'],542,520,24,MUTED,leading=36)
-    jobs=[('01','编号关联','梳理跨系统编号对应线索','名称 / 规格 / 单位'),('02','配方核对','识别投入与领退料的矛盾','配方 / 领料 / 退料'),('03','工单识别','查找加工环节中的记录断点','工单 / 半成品 / 委外'),('04','缺价定位','追查缺失单价的来源依据','入库 / 采购 / 计价')]
-    for i,(n,title,body,meta) in enumerate(jobs):
-        x=72+i%2*512;y=687+i//2*232
-        p.line(x,y,x+464,y,LINE,2);p.text(n,x,y+24,18,BLUE,'EB')
-        p.text(title,x+46,y+18,34,INK,'B');p.text(body,x,y+86,25,MUTED);p.text(meta,x,y+137,20,BLUE)
-    p.rect(72,1198,976,230,LIGHT,18)
-    for i,(title,desc) in enumerate([('AI 找线索',['识别问题','形成待确认项']),('规则做计算',['依据确认后','由程序执行']),('专家作判断',['确认事实','明确口径与边界'])]):
-        x=107+i*313
-        if i:p.line(x-20,1241,x-20,1383,'#CFDDF4')
-        p.text(title,x,1245,29,INK,'B');p.lines(desc,x,1304,23,MUTED,leading=35)
+    # 03 — Diagnose relationships before choosing remediation.
+    p=make_poster(3,'IPO 数据体检','03-数据体检')
+    p.title(['先看清风险，','再决定怎么治理。'],['跨系统查勾稽，定位未来可能解释不清的数据。'])
+    checks=[('采购 · 入库 · 应付','数量与金额是否一致'),('领料 · BOM · 产量','实际耗用是否匹配配方'),('生产 · 库存','工单与成品入库是否接续'),('库存 · 财务','进耗存是否与总账一致'),('成本 · 收入','毛利波动能否解释'),('主数据','编号与版本是否统一')]
+    for i,(title,desc) in enumerate(checks):
+        x=72+i%2*512;y=506+i//2*138
+        p.line(x,y,x+464,y,LINE,2)
+        p.text(f'0{i+1}',x,y+25,18,BLUE,'EB')
+        p.text(title,x+43,y+20,27,INK,'B')
+        p.text(desc,x+43,y+71,22,MUTED)
+    p.text('程序批量检查，AI 逐类归因，区分规则修复与待确认事项。',72,959,24,BLUE,'B')
+    p.rect(72,1042,976,386,LIGHT,18)
+    p.text('交付 · IPO 数据风险体检报告',108,1081,31,INK,'B')
+    results=[('问题定位','系统、年度、品号或单据类型'),('影响范围','风险分级与数据影响规模'),('治理建议','处理建议与工作量评估')]
+    for i,(title,desc) in enumerate(results):
+        y=1156+i*79
+        p.circle(120,y+13,5,BLUE);p.text(title,146,y,26,INK,'B');p.text(desc,355,y+1,23,MUTED)
     paths.append(p.finish())
 
-    # 04 — Clearly separate human confirmation, execution, and rerun.
-    p=make_poster(4,'规则重算','04-规则重算')
-    p.title(['规则变了，','三年统一重算。'],['把确认后的处理口径写成规则，沿加工层级执行。'])
-    p.rect(72,506,976,173,LIGHT,16)
-    p.text('01',102,544,20,BLUE,'EB');p.text('确认关键依据与处理规则',164,534,34,INK,'B')
-    p.text('由企业及相关专业人员确认事实与口径。',164,594,24,MUTED)
-    p.line(560,680,560,738,BLUE,2)
-    p.circle(560,745,7,BLUE)
-    p.text('02  程序统一执行',72,747,26,BLUE,'B')
-    for i in range(3):
-        x=72+i*335
-        p.rect(x,817,306,238,BLUE,16)
-        p.text(f'第 {i+1} 年',x+28,849,35,WHITE,'B')
-        p.line(x+28,914,x+278,914,'#75A0FF')
-        p.text('进 · 耗 · 存',x+28,939,27,WHITE,'B')
-        p.text('逐品号成本明细',x+28,994,22,'#DDE8FF')
-    p.line(225,1094,895,1094,BLUE,2);p.line(225,1057,225,1094,BLUE,2);p.line(895,1057,895,1094,BLUE,2);p.line(560,1057,560,1127,BLUE,2)
-    p.text('规则调整后，可重新执行完整三年数据。',560,1155,29,BLUE,'B',align='center')
-    p.line(72,1240,1048,1240,LINE)
-    p.text('03',72,1280,20,BLUE,'EB');p.text('每次调整，都留下依据。',126,1269,34,INK,'B')
-    p.lines(['保留调整前后值、执行规则与相关智能体记录。','减少逐表修改和重复核对，让重算过程可追溯。'],126,1330,25,MUTED,leading=39)
-    paths.append(p.finish())
-
-    # 05 — Five concrete deliverables as an evidence ledger.
-    p=make_poster(5,'可复核交付','05-可复核交付')
-    p.title(['交付数字，','也交付依据。'],['让项目组能对照、能追问，也能复核。'])
-    deliver=[('三年逐品号明细','进、耗、存与成本，沿加工层级还原。'),('数据来源说明','区分直接取数、规则还原与无法解释的残差。'),('调整留痕台账','调整前后值、规则与相关智能体记录。'),('残差清单','未能解释的差额如实列示，附待确认事项。'),('可重跑规则集','规则变化后，支持完整三年数据重新执行。')]
-    for i,(title,desc) in enumerate(deliver):
-        y=515+i*153
+    # 04 — Quantity conservation before cost allocation, with five deliverables.
+    p=make_poster(4,'IPO 数据治理','04-数据治理')
+    p.title(['先把数量对齐，','再把金额算清。'],['把互相矛盾的记录，还原成可追溯的三年逐品号明细。'])
+    pains=[('identity','同物多码'),('recipe','领料偏离配方'),('price','入库缺价'),('stock','补录与库存不符')]
+    for i,(key,title) in enumerate(pains):
+        x=72+i*250
+        p.image(f'pain-{key}.png',x,500,226,150.67)
+        p.text(title,x,674,24,INK,'B')
+    for i,(num,title,desc) in enumerate([('01','数量重算','先核对进、耗、存，达到守恒'),('02','金额滚算','锁定数量，再沿加工层级计算成本')]):
+        x=72+i*512
+        p.rect(x,758,464,164,BLUE if i==0 else LIGHT,16)
+        fg=WHITE if i==0 else INK
+        p.text(num,x+27,785,19,'#DCE7FF' if i==0 else BLUE,'EB')
+        p.text(title,x+79,778,35,fg,'B')
+        p.text(desc,x+27,862,22,'#E0EAFF' if i==0 else MUTED)
+    p.text('五项交付，保留每一笔数字的来路。',72,984,30,INK,'B')
+    deliveries=[('三年逐品号明细','进、耗、存与成本'),('来源说明','直接取数 / 按规则还原 / 待确认残差'),('调整留痕台账','调整前后数值、依据规则与智能体'),('残差清单','无法解释的差额单列，并附待确认事项'),('可重跑规则集','逐条复核，规则变更后三年统一重算')]
+    for i,(title,desc) in enumerate(deliveries):
+        y=1054+i*72
         p.line(72,y,1048,y,LINE)
-        p.text(f'0{i+1}',72,y+30,38,BLUE,'EB');p.text(title,171,y+26,35,INK,'B');p.text(desc,171,y+87,24,MUTED)
-    p.rect(72,1323,976,106,LIGHT,12)
-    p.text('每一项结果，都有对应的核对入口。',560,1357,32,BLUE,'B',align='center')
+        p.text(f'0{i+1}',72,y+22,18,BLUE,'EB');p.text(title,118,y+17,25,INK,'B');p.text(desc,408,y+20,22,MUTED)
+    p.text('业务场景图片为示意。无法还原的部分如实单列，不作隐性摊销。',72,1441,17,MUTED)
     paths.append(p.finish())
 
-    # 06 — Accurate anonymous case, no invented implementation timeline.
+    # 05 — Natural-language question to a source-backed data package.
+    p=make_poster(5,'IPO 问询数据响应','05-问询数据响应')
+    p.title(['问到哪笔数据，','就追到哪条依据。'],['AI 拆解问题，规则程序取数与重算，形成问询数据证据包。'])
+    p.rect(72,500,976,166,BLUE,18)
+    p.text('一个典型问询',108,530,20,'#DCE7FF')
+    p.text('某产品毛利率，为什么变了？',108,580,42,WHITE,'B')
+    p.text('01  拆成可验证的子问题',72,722,25,BLUE,'B')
+    for i,label in enumerate(['销售单价','材料成本','人工成本','制造费用']):
+        x=72+i*250
+        p.rect(x,776,226,91,LIGHT,12);p.text(label,x+113,806,28,INK,'B','center')
+    p.text('定位到具体期间、品号与单据，计算各因素的影响。',72,899,23,MUTED)
+    p.text('02  沿业务链追到来源与计算规则',72,978,25,BLUE,'B')
+    for i,label in enumerate(['ERP','BOM','采购','生产','财务']):
+        x=72+i*199
+        p.circle(x+35,1075,35,LIGHT);p.text(label,x+35,1061,25,INK,'B','center')
+        if i<4:p.arrow(x+89,1075,x+171,'#B6CDF4',2)
+    p.rect(72,1166,976,263,LIGHT,18)
+    p.text('03  交付问询数据证据包',108,1199,30,INK,'B')
+    for i,(title,desc) in enumerate([('问题拆解','子问题与验证路径'),('证据链','单据、规则与中间结果'),('回复底稿','数据表与说明')]):
+        x=108+i*313
+        if i:p.line(x-20,1261,x-20,1357,'#CBDCF7')
+        p.text(title,x,1265,28,INK,'B');p.text(desc,x,1317,21,MUTED)
+    p.text('供券商、会计师撰写问询回复使用；专业判断与回复由专业机构负责。',72,1445,17,MUTED)
+    paths.append(p.finish())
+
+    # 06 — Case scope is explicit; residuals are disclosed, never inverted to accuracy.
     p=make_poster(6,'客户实践','06-客户实践')
-    p.title(['走出数据困境，','完成项目交付。'],['一家经券商推荐的多层加工拟 IPO 制造企业。'])
-    p.text('原有困境',72,511,22,MUTED,'B')
-    p.text('1',72,558,148,INK,'EB');p.text('年',171,643,35,INK,'B')
-    p.text('ERP 方案尝试后，仍未完成',320,584,34,INK,'B')
-    p.lines(['多层加工环节交织，','成本数据还原持续受阻。'],320,648,25,MUTED,leading=39)
-    p.line(72,763,1048,763,LINE)
-    p.text('智溯介入',72,805,22,BLUE,'B')
-    steps=[('本地部署','在企业内网处理已有数据'),('专项识别','核对配方、工单与编号关联'),('规则还原','依据确认后补价，接续多级成本')]
-    for i,(title,desc) in enumerate(steps):
-        y=868+i*108
-        p.circle(91,y+19,18,LIGHT);p.text(str(i+1),91,y+8,21,BLUE,'EB',align='center')
-        if i<2:p.line(91,y+39,91,y+88,LINE,2)
-        p.text(title,140,y,30,INK,'B');p.text(desc,372,y+5,25,MUTED)
-    p.rect(72,1236,976,191,BLUE,16)
-    p.text('完成数据还原交付',108,1272,43,WHITE,'B')
-    p.text('并获得客户认可。',108,1345,27,'#DDE8FF')
-    p.text('匿名案例依据现有服务材料整理，不代表审计或 IPO 结果。',72,1454,17,MUTED)
+    p.title(['百万行数据，','追到每笔调整的依据。'],['匿名数据治理案例 · 经券商推荐的多层加工制造业拟 IPO 企业'])
+    metrics=[('32','个月','覆盖三个年度，实际 32 个月'),('144–169','万行','单年源数据规模'),('11','层','最深加工层级'),('268,188','条','数量调整，每条都留有依据')]
+    for i,(value,unit,desc) in enumerate(metrics):
+        x=72+i%2*512;y=521+i//2*244
+        p.line(x,y,x+464,y,LINE,2)
+        p.text(value,x,y+31,76 if len(value)<5 else 64,BLUE,'EB')
+        p.text(unit,x+441,y+73,25,BLUE,'B','right')
+        p.text(desc,x,y+143,24,INK,'B')
+    p.rect(72,1071,976,231,LIGHT,18)
+    p.text('残差金额 / 入库总额',108,1105,23,INK,'B')
+    p.text('1.06%–2.38%',108,1153,68,BLUE,'EB')
+    p.lines(['各年度残差全部单独列示，','供企业确认。'],657,1158,25,INK,leading=42)
+    p.text('三个年度均达到项目交付标准，数量与金额校验通过。',72,1346,26,INK,'B')
+    p.text('上述为本案例数据；残差比例不等于准确率，也不代表其他项目表现。',72,1412,19,MUTED)
     paths.append(p.finish())
 
-    # 07 — Useful preparation, real public destination.
+    # 07 — Select an entry point, then establish scope and factual confirmations.
     p=make_poster(7,'开始合作','07-开始合作')
-    p.title(['从现有数据，','开始下一步。'],['先梳理现状，再评估范围与实施安排。'])
-    prep=[('系统与数据范围','现有 ERP、数据年份、可提供的单据'),('品号与加工层级','原料、半成品、委外与产成品关系'),('已知问题与整改历史','编号、配方、缺价、库存及已有成果'),('交付节点与确认人','项目时间要求、业务与财务对接人')]
-    for i,(title,desc) in enumerate(prep):
-        y=515+i*147
-        p.line(72,y,1048,y,LINE)
-        p.rect(72,y+35,30,30,WHITE,5,LINE)
-        p.text(title,136,y+24,34,INK,'B');p.text(desc,136,y+82,24,MUTED)
-    p.rect(72,1156,976,272,LIGHT,16)
-    p.text('了解现状  →  联合评估  →  约定范围',104,1190,28,BLUE,'B')
-    p.lines(['企业主要提供已有数据，','配合确认关键问题。'],104,1254,28,INK,'B',43)
-    p.text('数据与模型在企业内网运行。',104,1368,22,MUTED)
-    make_qr(p,856,1211,150,site_url)
-    p.text('扫码查看官网',931,1377,19,MUTED,align='center')
+    p.title(['从您的阶段，','选择需要的服务。'],['三个产品可单独签约，也可组合推进。'])
+    entries=[('辅导期早期','数据体检','先看清风险'),('申报前','数据治理','还原历史成本'),('审核问询','问询数据响应','逐问准备依据')]
+    for i,(stage,name,why) in enumerate(entries):
+        x=72+i*333
+        p.rect(x,501,310,219,LIGHT,16)
+        p.text(stage,x+25,531,20,BLUE,'B');p.text(name,x+25,586,31 if i<2 else 29,INK,'B');p.text(why,x+25,659,23,MUTED)
+    p.text('先从四项信息，明确合作范围。',72,794,32,INK,'B')
+    for i,(title,desc) in enumerate([('系统与数据','ERP 等现有系统，涉及年度与数据范围'),('品号与层级','物料、工艺、半成品及委外的复杂程度'),('问题与历史','已知差异，以及此前做过的整改'),('节点与确认人','目标节点，关键事实与口径由谁确认')]):
+        y=866+i*72
+        p.text(f'0{i+1}',72,y+3,19,BLUE,'EB');p.text(title,119,y,25,INK,'B');p.text(desc,330,y+2,22,MUTED)
+    p.rect(72,1200,976,229,BLUE,18)
+    p.lines(['提供现有数据，','确认关键事实。'],108,1234,39,WHITE,'B',53)
+    p.text('本地部署 · 数据不出企业内网 · 无需替换 ERP',108,1370,21,'#E0EAFF')
+    p.rect(859,1231,153,153,WHITE,8);make_qr(p,870,1242,131,site_url)
+    p.text('了解服务',935,1394,17,WHITE,'C','center')
+    p.text('服务不替代审计及专业判断，不承诺 IPO 结果。具体范围以合同约定为准。',72,1451,16,MUTED)
     paths.append(p.finish())
 
-    combined=output_dir/'传神智溯-七张故事海报-AI价值版.pdf'
+    combined=output_dir/'传神智溯-七张销售海报.pdf'
     writer=PdfWriter()
-    for path in paths: writer.append(PdfReader(path))
-    with combined.open('wb') as f: writer.write(f)
+    for path in paths:
+        reader=PdfReader(path)
+        if len(reader.pages)!=1:raise BuildError(f'单张海报应为一页：{path.name}')
+        writer.add_page(reader.pages[0])
+    with combined.open('wb') as stream:writer.write(stream)
 
-    # Service overview: refresh homepage download to carry the same AI narrative.
-    p=make_poster(0,'服务总览','传神智溯-一页服务介绍-AI价值版')
-    p.title(['把历史数据，','还原成可复核的成本。'],['智溯 · AI 数据治理服务 / IPO 成本数据还原专项'])
-    p.image('data-sculpture.webp',580,500,468,351)
-    p.text('为什么用 AI',72,516,22,BLUE,'B')
-    p.lines(['跨单据找线索，','跨层级追成本。'],72,569,42,INK,'B',57)
-    p.lines(['专项智能体识别问题，','确认后的规则由程序执行，','让专家聚焦关键事实与口径。'],72,716,25,MUTED,leading=39)
-    p.line(72,886,1048,886,LINE)
-    for i,(v,label,small) in enumerate([('100+','专项智能体','按企业数据问题配置'),('3年','统一还原与重算','逐品号进耗存与成本'),('本地','部署与运行','数据与模型在企业内网')]):
-        x=72+i*335
-        p.text(v,x,932,65,BLUE,'EB' if i==0 else 'B');p.text(label,x,1022,27,INK,'B');p.text(small,x,1070,20,MUTED)
-    p.line(72,1132,1048,1132,LINE)
-    p.text('交付数字，也交付依据。',72,1174,34,INK,'B')
-    p.lines(['三年逐品号明细 · 数据来源说明 · 调整留痕台账','残差清单 · 可重跑规则集'],72,1236,25,MUTED,leading=40)
-    p.rect(72,1359,976,73,LIGHT,10)
-    p.text('面向拟 IPO 制造业企业及券商项目组',98,1382,26,BLUE,'B')
-    make_qr(p,888,1183,133,site_url)
-    p.text('扫码了解服务',954,1330,18,MUTED,align='center')
-    p.footer('服务范围与实施安排以项目方案为准。')
+    # Service overview — one-page handout, using the same product language.
+    p=make_poster(0,'IPO 数据服务','传神智溯-服务总览')
+    p.title(['把说不清的数据，','变成经得起问的依据。'],['数据体检 · 数据治理 · 问询数据响应'])
+    p.image('data-sculpture.webp',72,475,976,460)
+    for i,(name,desc) in enumerate([('数据体检',['问题定位','影响范围与治理建议']),('数据治理',['三年逐品号明细','留痕、残差与可重跑规则']),('问询数据响应',['每个问题一条证据链','数据表与说明'])]):
+        x=72+i*333
+        p.line(x,983,x+310,983,LINE,2);p.text(name,x,1010,29,INK,'B');p.lines(desc,x,1065,22,MUTED,leading=36)
+    p.rect(72,1191,976,229,LIGHT,18)
+    p.lines(['AI 推断成因，程序按规则计算。','关键口径，由人确认。'],108,1230,31,INK,'B',48)
+    p.text('可单选 · 可组合 · 本地部署 · 无需替换 ERP',108,1358,22,BLUE,'B')
+    make_qr(p,881,1231,130,site_url)
+    p.footer('服务不替代审计及专业判断，不承诺 IPO 结果。')
     overview=p.finish()
-
     return paths, combined, overview
 
 
@@ -365,8 +381,8 @@ def sync_site(paths, combined, overview, previews):
     pairs += [(combined, ASSETS / "posters" / "zhisu-story.pdf"),
               (overview, ASSETS / "zhisu-poster.pdf")]
     if previews:
-        pairs += [(path.with_suffix(".webp"), ASSETS / "posters" / f"{i:02d}.webp")
-                  for i, path in enumerate(paths, 1)]
+        pairs += [(path.with_suffix(extension), ASSETS / "posters" / f"{i:02d}{extension}")
+                  for i, path in enumerate(paths, 1) for extension in (".png", ".webp")]
     for source, destination in pairs:
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(source, destination)
@@ -388,7 +404,7 @@ def parse_args(argv=None):
     parser.add_argument("--render", action="store_true", help="用 pdftoppm 渲染单张 PDF，生成 1120×1584 PNG/WebP。")
     parser.add_argument("--pdftoppm", default=os.environ.get("PDFTOPPM", "pdftoppm"),
                         help="pdftoppm 的名称或路径，也可设置 PDFTOPPM 环境变量。")
-    parser.add_argument("--sync-site", action="store_true", help="显式覆盖网站 PDF；与 --render 同用时也更新七张 WebP。")
+    parser.add_argument("--sync-site", action="store_true", help="显式覆盖网站 PDF；与 --render 同用时也更新七张 PNG/WebP。")
     parser.add_argument("--check", action="store_true", help="只检查依赖、图片和字体；不生成、渲染或同步文件。")
     return parser.parse_args(argv)
 
@@ -426,10 +442,12 @@ def main(argv=None):
                                 for i, path in enumerate(paths, 1)],
                     "combined": repository_relative(combined),
                     "overview": {"pdf": repository_relative(overview), **previews.get(overview, {})},
-                    "content_source": "智溯_IPO数据治理服务_销售一指禅(1).docx",
-                    "claims": "100+ refers to a complete cleaning service, configured by data issues. "
-                              "Three years is the data scope, not a delivery duration. The anonymous case's "
-                              "earlier ERP attempt lasted one year without completion; no AI case duration is claimed.",
+                    "content_source": "用户提供的三产品销售资料；品牌按用户要求统一为传神智溯",
+                    "claims": "Three products may be purchased individually or combined. The anonymous case covers "
+                              "32 months across three reporting years, with 1.44–1.69 million source rows per year, "
+                              "11 processing levels, and 268188 quantity adjustments with retained evidence. "
+                              "Annual residual amount / receipt value is 1.06%–2.38%; this is not accuracy. "
+                              "No pending price or duration, AI zero-error promise, or IPO outcome guarantee is advertised.",
                     "site_synced": bool(args.sync_site), "site_files": []}
         if args.sync_site:
             manifest["site_files"] = sync_site(paths, combined, overview, previews)

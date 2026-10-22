@@ -2,39 +2,39 @@
 
 const chapters = [
   {
-    "title": "业务难题",
-    "description": "同物多码、领料偏离配方、入库缺价、手工补录与库存不符。当这些问题穿过多层加工，三年逐品号成本明细就难以形成。",
-    "alt": "01 业务难题：数据都在，成本为何对不上？"
+    "title": "三产品总览",
+    "description": "数据体检、数据治理、问询数据响应，可单独选择，也可按体检 → 治理 → 问询响应组合，覆盖从辅导期到审核问询的数据需要。",
+    "alt": "01 三产品总览：让数据说得清，让问询有依据。"
   },
   {
     "title": "为什么用AI",
-    "description": "核清一笔，需要对照采购、领料、工单、半成品、委外与入库。这样的追查，要沿着不同品号和加工层级贯穿三年。难的不只是算数，还有反复找数、对数、查依据。",
-    "alt": "02 为什么用AI：一笔成本，要追多远？"
+    "description": "BOM 写 A 料、车间领 B 料，AI 从差异推断替代关系，写成规则，交程序试算，再用成本结果反向检验并修正。在已交付案例中，每年识别 4,000 余条替代关系；关键口径与计价依据仍由企业及专业人员确认。",
+    "alt": "02 为什么用AI：AI 的价值，是把疑点追到底。"
   },
   {
-    "title": "专项智能体",
-    "description": "完整清洗服务调用 100+ 专项智能体，具体按企业数据问题配置。编号、配方、工单、缺价分别识别，形成可核对的线索与待确认事项，让专业人员聚焦关键事实与口径。",
-    "alt": "03 专项智能体：一个难题，一个专项智能体。"
+    "title": "数据体检",
+    "description": "程序批量检查采购、领料、生产、库存、成本及主数据的勾稽关系，AI 逐类归因。交付 IPO 数据风险体检报告，说明问题定位、影响范围及治理建议，供企业和券商安排后续工作。",
+    "alt": "03 数据体检：先看清风险，再决定怎么治理。"
   },
   {
-    "title": "规则重算",
-    "description": "确认后的规则由程序执行，沿加工层级还原进耗存与成本。规则调整后，三年数据统一重算，保留调整前后及所用依据，减少逐表修改和重复核对。",
-    "alt": "04 规则重算：规则变了，三年统一重算。"
+    "title": "数据治理",
+    "description": "处理同物多码、领料偏离配方、入库缺价、补录与库存不符四类矛盾。先重算数量，再在锁定的数量上逐级算金额；交付三年逐品号明细、来源说明、调整留痕台账、残差清单与可重跑规则集。",
+    "alt": "04 数据治理：先把数量对齐，再把金额算清。"
   },
   {
-    "title": "可复核交付",
-    "description": "三年逐品号明细、来源说明、调整留痕台账、残差清单、可重跑规则。结果能复核，调整有记录；无法解释的差额如实列明，交企业确认。",
-    "alt": "05 可复核交付：交付数字，也交付依据。"
+    "title": "问询数据响应",
+    "description": "围绕毛利变化等数据类问询，AI 拆解可验证的子问题，程序沿 ERP、BOM、采购、生产与财务取数和重算，形成附来源单据、计算规则及中间结果的证据包，供券商、会计师撰写回复。",
+    "alt": "05 问询数据响应：问到哪笔数据，就追到哪条依据。"
   },
   {
     "title": "客户实践",
-    "description": "一家经券商推荐的多层加工拟 IPO 企业，在 ERP 方案尝试一年未完成后，通过智溯完成数据还原交付并获客户认可。匿名案例，依据现有服务材料整理，不代表审计或 IPO 结果。",
-    "alt": "06 客户实践：走出数据困境，完成项目交付。"
+    "description": "匿名数据治理案例覆盖三个年度实际 32 个月，单年源数据 144 万至 169 万行，加工最深 11 层，共 268,188 条数量调整并逐条留痕。各年度残差金额占入库总额 1.06%–2.38%，全部单列；该比例不等于准确率，也不代表其他项目表现。",
+    "alt": "06 客户实践：百万行数据，追到每笔调整的依据。"
   },
   {
     "title": "开始合作",
-    "description": "从系统与数据范围、品号与加工层级、已知问题与整改历史、交付节点与关键确认人开始沟通。先了解现状，再联合评估、约定范围。企业主要提供已有数据并确认关键问题。",
-    "alt": "07 开始合作：从现有数据，开始下一步。"
+    "description": "辅导期可从数据体检开始，申报前做数据治理，审核问询时准备数据证据。企业提供现有系统数据，并确认关键事实与口径；双方根据数据范围、复杂程度和目标节点约定服务，可单独签约或组合推进。",
+    "alt": "07 开始合作：从您的阶段，选择需要的服务。"
   }
 ];
 
@@ -61,7 +61,7 @@ function selectChapter(index, { focus = false, updateHash = false } = {}) {
     tab.setAttribute('aria-selected', String(active));
     tab.tabIndex = active ? 0 : -1;
   });
-  poster.src = `assets/posters/${number}.webp?v=6`;
+  poster.src = `assets/posters/${number}.webp?v=12`;
   poster.alt = chapter.alt;
   expandedPoster.src = poster.src;
   expandedPoster.alt = chapter.alt;
@@ -69,7 +69,8 @@ function selectChapter(index, { focus = false, updateHash = false } = {}) {
   document.getElementById('poster-counter').textContent = number;
   document.getElementById('chapter-category').textContent = chapter.title;
   document.getElementById('chapter-description').textContent = chapter.description;
-  document.getElementById('single-download').href = `assets/posters/${number}.pdf?v=6`;
+  document.getElementById('single-download').href = `assets/posters/${number}.pdf?v=12`;
+  document.getElementById('single-image-download').href = `assets/posters/${number}.png?v=12`;
   document.getElementById('poster-prev').disabled = current === 0;
   document.getElementById('poster-next').disabled = current === chapters.length - 1;
 
