@@ -10,9 +10,13 @@
 
 ## 02 为什么用 AI
 
-“一笔成本可能要沿采购、领退料、工单、半成品、委外和入库反复追查。AI 读取诊断结果，推断矛盾成因并提出规则；程序试算、校验，再根据结果复核和迭代。企业和专业人员确认关键事实、计价依据与会计口径。”
+**找到矛盾背后的原因，用重算验证每个判断。**
 
-可以用替代用料解释：BOM 写 A 料，实际领了 B 料，先形成替代关系线索，再用单据、计价和试算结果验证，不能看到差异就直接认定替代成立。强调“诊断 → 推断 → 规则 → 试算 → 复核”，不承诺 AI 零错，也不把智能体数量当成三个产品都适用的固定配置。
+“先看这处差异：BOM 写的是 A 料，实际领的却是 B 料。现在能确定的是记录不同，原因还要核对。AI 先找线索、提出候选解释，程序按候选规则试算；AI 再结合成本结果反查、修正，专业人员确认关键依据，并把过程留下来。”
+
+第 02 张与官网共用 `assets/material-discrepancy.png` 插图。讲解停留在用料差异的起点，不能直接说 B 已是有效替代。候选替代关系仍需结合来源单据、计价和试算结果验证；不成立的解释应修正或排除。
+
+已交付案例每年识别 4,000 余条替代关系，这个数字说明该案例的年度处理规模，不代表所有项目，也不是对插图中 B 料的确认结论。强调“AI 找线索与候选解释 → 程序试算 → AI 反查修正 → 专业确认并留痕”，不承诺 AI 零错。
 
 ## 03 IPO 数据体检
 
@@ -51,6 +55,6 @@
 - [公开官网](https://tory-arch.github.io/transn-zhisu/)
 - [七张海报](https://tory-arch.github.io/transn-zhisu/story.html)
 - [为什么用 AI：直达第 02 张](https://tory-arch.github.io/transn-zhisu/story.html#poster-02)
-- [v1.2.0 可编辑包](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.2.0/transn-zhisu-editable-v1.2.0.zip)
+- [v1.2.2 可编辑包](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.2.2/transn-zhisu-editable-v1.2.2.zip)
 
 PDF 为 A3 竖版，可等比缩印为 A4；PNG / WebP 设计尺寸为 1120 × 1584。四张业务痛点图是独立的场景示意，不是七张海报的章节编号。

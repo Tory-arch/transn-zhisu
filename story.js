@@ -8,8 +8,8 @@ const chapters = [
   },
   {
     "title": "为什么用AI",
-    "description": "BOM 写 A 料、车间领 B 料，AI 从差异推断替代关系，写成规则，交程序试算，再用成本结果反向检验并修正。在已交付案例中，每年识别 4,000 余条替代关系；关键口径与计价依据仍由企业及专业人员确认。",
-    "alt": "02 为什么用AI：AI 的价值，是把疑点追到底。"
+    "description": "配方写 A 料、实际领 B 料，差异原因待核对。AI 找线索、提出候选解释；程序试算，AI 反查修正，再由专业人员确认依据并留痕。已交付案例每年识别 4,000 余条替代用料关系，并用成本结果反向检验。",
+    "alt": "02 为什么用AI：找到矛盾背后的原因，用重算验证每个判断。"
   },
   {
     "title": "数据体检",
@@ -61,7 +61,7 @@ function selectChapter(index, { focus = false, updateHash = false } = {}) {
     tab.setAttribute('aria-selected', String(active));
     tab.tabIndex = active ? 0 : -1;
   });
-  poster.src = `assets/posters/${number}.webp?v=12`;
+  poster.src = `assets/posters/${number}.webp?v=14`;
   poster.alt = chapter.alt;
   expandedPoster.src = poster.src;
   expandedPoster.alt = chapter.alt;
@@ -69,8 +69,8 @@ function selectChapter(index, { focus = false, updateHash = false } = {}) {
   document.getElementById('poster-counter').textContent = number;
   document.getElementById('chapter-category').textContent = chapter.title;
   document.getElementById('chapter-description').textContent = chapter.description;
-  document.getElementById('single-download').href = `assets/posters/${number}.pdf?v=12`;
-  document.getElementById('single-image-download').href = `assets/posters/${number}.png?v=12`;
+  document.getElementById('single-download').href = `assets/posters/${number}.pdf?v=14`;
+  document.getElementById('single-image-download').href = `assets/posters/${number}.png?v=14`;
   document.getElementById('poster-prev').disabled = current === 0;
   document.getElementById('poster-next').disabled = current === chapters.length - 1;
 

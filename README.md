@@ -3,7 +3,7 @@
 面向拟上市制造企业及券商项目组的 IPO 数据服务网站：**数据体检、数据治理、问询数据响应**。本仓库提供可编辑的静态网站、七张故事海报、导出素材和海报生成源码。
 
 - **在线浏览**：[传神智溯官网](https://tory-arch.github.io/transn-zhisu/)（公开访问，无需登录）
-- **下载可编辑包**：[v1.2.1 完整 ZIP](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.2.1/transn-zhisu-editable-v1.2.1.zip)（无需登录，解压后可修改）
+- **下载可编辑包**：[v1.2.2 完整 ZIP](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.2.2/transn-zhisu-editable-v1.2.2.zip)（无需登录，解压后可修改）
 - **源码仓库**：[Tory-arch/transn-zhisu](https://github.com/Tory-arch/transn-zhisu)
 - **故事海报**：[七张海报](https://tory-arch.github.io/transn-zhisu/story.html)
 - **参与修改**：[协作指南](CONTRIBUTING.md)（Fork → 本地编辑 → 预览 → Pull Request）
@@ -27,7 +27,7 @@ AI 的价值在于读取诊断、梳理线索、推断矛盾成因并提出规�
 | 编号 | 主题 | 讲述重点 |
 | --- | --- | --- |
 | 01 | 服务总览 | 体检、治理、问询数据响应，按需要选择或组合 |
-| 02 | 为什么用 AI | 从诊断、推断到规则试算与复核迭代，明确人、AI 和程序的分工 |
+| 02 | 为什么用 AI | 以 A/B 用料差异为起点，AI 提出候选解释、程序试算、AI 反查修正，专业确认并留痕 |
 | 03 | 数据体检 | 先定位数据疑点，判断是否需要治理及工作范围 |
 | 04 | 数据治理 | 还原三年逐品号明细，交付来源、留痕、残差与规则 |
 | 05 | 问询数据响应 | 将具体问题展开为来源、计算过程和数据底稿 |
@@ -48,7 +48,7 @@ AI 的价值在于读取诊断、梳理线索、推断矛盾成因并提出规�
 | 通用样式、页面交互和沟通清单 | [styles.css](styles.css)、[app.js](app.js) |
 | AI 分工与工作循环 | `index.html` 的 `#method` 段、[ai-value.css](ai-value.css) |
 | 四类业务问题的分类、说明与切换 | [business-scenes.js](business-scenes.js)、[business-scenes.css](business-scenes.css)，以及 `index.html` 的 `#challenges` 初始内容 |
-| AI 用料差异插图 | `assets/material-discrepancy.webp`（网页）、`assets/material-discrepancy.png`（原图）；[生成说明](docs/material-discrepancy-prompt.md) |
+| AI 用料差异插图 | `assets/material-discrepancy.webp`（网页）、`assets/material-discrepancy.png`（第 02 张海报共用原图）；[生成说明](docs/material-discrepancy-prompt.md) |
 | 四张业务图片 | `assets/pain-identity.png`、`pain-recipe.png`、`pain-price.png`、`pain-stock.png` |
 | 海报展厅的章节、说明与交互 | [story.html](story.html)、[story.css](story.css)、[story.js](story.js) |
 | 海报网页图与 PDF | `assets/posters/01.webp`—`07.webp`、`01.pdf`—`07.pdf`、`zhisu-story.pdf`；首页单页为 `assets/zhisu-poster.pdf` |
@@ -71,7 +71,7 @@ python3 -m http.server 8080
 
 ## 发布与版本
 
-GitHub Pages 从 `main` 分支的根目录发布，保留 `.nojekyll`。修改合入 `main` 后会触发站点更新；本地修改、Fork 或提交 PR 本身不会改变官网。可编辑发布包使用版本号固定内容，v1.2.1 的下载地址见本页顶部。
+GitHub Pages 从 `main` 分支的根目录发布，保留 `.nojekyll`。修改合入 `main` 后会触发站点更新；本地修改、Fork 或提交 PR 本身不会改变官网。可编辑发布包使用版本号固定内容，v1.2.2 的下载地址见本页顶部。
 
 ## 公开内容边界
 

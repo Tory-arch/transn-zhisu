@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "assets"
 DEFAULT_OUTPUT = ROOT / "design" / "posters" / "build"
 DEFAULT_SITE_URL = "https://tory-arch.github.io/transn-zhisu/"
-VERSION = 7
+VERSION = 8
 W, H = 1120, 1584
 BLUE='#2468FF'; INK='#132448'; MUTED='#687A96'; LIGHT='#EFF5FF'; LINE='#DCE6F5'; AMBER='#E9A339'; WHITE='#FFFFFF'
 
@@ -107,7 +107,7 @@ def register_fonts(regular, bold):
 
 def validate_assets():
     required = ["transn-logo.png", "data-sculpture.webp", "pain-identity.png",
-                "pain-recipe.png", "pain-price.png", "pain-stock.png"]
+                "pain-recipe.png", "pain-price.png", "pain-stock.png", "material-discrepancy.png"]
     missing = [f"assets/{name}" for name in required if not (ASSETS / name).is_file()]
     if missing:
         raise BuildError("缺少设计图片，请保留仓库 assets 目录：" + ", ".join(missing))
@@ -204,27 +204,38 @@ def build_pdfs(output_dir, site_url):
 
     # 02 — A concrete, falsifiable AI inference loop.
     p=make_poster(2,'为什么用 AI','02-为什么用AI')
-    p.title(['AI 的价值，','是把疑点追到底。'],['BOM 写的是 A 料，车间实际领了 B 料。是不是替代？'])
-    for x,label,letter,caption in [(72,'BOM 配方','A','要求领用的物料'),(584,'工单领料','B','实际投入的物料')]:
-        p.rect(x,500,464,204,LIGHT,16)
-        p.text(label,x+28,525,21,MUTED)
-        p.text(letter,x+28,569,80,BLUE,'EB')
-        p.text(caption,x+141,600,25,INK,'B')
-    p.text('有差异，不等于有答案。把假设写成规则，再用结果检验。',72,750,25,INK)
-    stages=[('推断','识别替代线索'),('规则','明确判断条件'),('试算','程序逐笔重跑'),('校验','对照成本结果'),('修正','排除不成立项')]
-    for i,(title,desc) in enumerate(stages):
+    p.text('找到矛盾背后的原因，',72,189,70,INK,'B')
+    p.text('用重算验证每个判断。',72,275,70,BLUE,'B')
+    p.text('百万行记录，跨年度、多层加工。让追查与验证持续推进。',72,394,25,MUTED)
+    p.rect(72,456,976,450,LIGHT,18)
+    p.text('从一处用料差异开始',104,492,19,BLUE,'B')
+    p.lines(['配方写 A，','车间却领了 B。'],104,548,40,INK,'B',58)
+    p.lines(['是录错了、临时替代，','还是编号不同的','同一种物料？'],104,696,23,MUTED,leading=36)
+    # Use the approved website image at its original 4:3 aspect ratio.
+    p.image('material-discrepancy.png',486,468,546,409.5)
+    p.text('配方要求 A',622,878,18,MUTED,'C','center')
+    p.text('实际领用 B',895,878,18,MUTED,'C','center')
+    p.text('业务示意 · A/B 为示意物料，差异原因待核对',72,925,17,MUTED)
+    stages=[('AI 追查','从差异中找线索',['对照工单与配方，','找到 A 缺失、B 多出。']),
+            ('AI 推断','提出候选解释',['推断差异成因，','写成有条件的规则。']),
+            ('程序校验','让规则接受试算',['重算数量与成本，','检查守恒与约束。']),
+            ('AI 修正','用结果反查判断',['反查异常价差，','修正规则再验证。']),
+            ('专业确认','确认依据再重算',['人确认关键口径，','程序执行并留痕。'])]
+    for i,(role,title,desc) in enumerate(stages):
         x=72+i*199
-        p.circle(x+24,853,24,BLUE if i<4 else INK)
-        p.text(str(i+1),x+24,840,25,WHITE,'EB','center')
-        if i<4:p.arrow(x+61,853,x+180,'#AFC7F5',2)
-        p.text(title,x,901,31,INK,'B');p.text(desc,x,953,20,MUTED)
-    p.rect(72,1055,976,229,LIGHT,18)
-    p.text('已交付案例',104,1085,18,BLUE,'B')
-    p.text('4,000+',104,1123,74,BLUE,'EB')
-    p.text('每年识别替代用料关系',104,1218,23,INK,'B')
-    p.lines(['用成本结果反向检验：','价差过大的“替代”不成立，','排除后再试算。'],570,1108,25,INK,leading=43)
-    p.text('AI 推断与写规则，程序计算，人确认关键口径。',72,1340,29,BLUE,'B')
-    p.text('会计口径、计价依据，由企业及相关专业人员确认。',72,1401,22,MUTED)
+        p.text(f'0{i+1}',x,986,24,BLUE,'EB')
+        p.text(role,x+43,990,18,MUTED)
+        if i<4:p.arrow(x+142,1000,x+178,'#AFC7F5',1.5)
+        p.text(title,x,1037,23,INK,'B')
+        p.lines(desc,x,1083,18,MUTED,leading=31)
+    p.rect(72,1191,976,192,LIGHT,18)
+    p.text('已交付案例',104,1219,18,BLUE,'B')
+    p.text('4,000',104,1258,66,BLUE,'EB')
+    p.text('余条 / 年',104+pdfmetrics.stringWidth('4,000','EB',66)+22,1291,20,BLUE)
+    p.text('识别的替代用料关系',104,1342,21,INK,'B')
+    p.lines(['用成本结果反向检验，','排除不成立的判断，','再修正规则、重新试算。'],596,1229,25,INK,leading=43)
+    p.text('AI 推断成因 · 程序验证计算 · 人确认关键依据',72,1412,26,BLUE,'B')
+    p.text('数据来自单个已交付治理案例；关键事实与计价依据仍需专业确认。',72,1455,17,MUTED)
     paths.append(p.finish())
 
     # 03 — Diagnose relationships before choosing remediation.

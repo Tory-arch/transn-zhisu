@@ -4,7 +4,7 @@
 
 - [源码仓库](https://github.com/Tory-arch/transn-zhisu)
 - [在线网站](https://tory-arch.github.io/transn-zhisu/)
-- [v1.2.1 可编辑包](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.2.1/transn-zhisu-editable-v1.2.1.zip)
+- [v1.2.2 可编辑包](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.2.2/transn-zhisu-editable-v1.2.2.zip)
 
 ## 下载后直接修改
 
@@ -30,7 +30,7 @@ git switch -c update-site
 | 三产品布局、AI 过程与案例样式 | `products.css` |
 | 三产品交付切换、产品分享锚点与合作服务预选 | `products.js` |
 | 页面通用布局、交互与沟通清单 | `styles.css`、`app.js` |
-| AI 用料差异插图 | `assets/material-discrepancy.webp`、`assets/material-discrepancy.png`；[生成说明](docs/material-discrepancy-prompt.md) |
+| AI 用料差异插图（网站与第 02 张海报共用） | `assets/material-discrepancy.webp`、`assets/material-discrepancy.png`；[生成说明](docs/material-discrepancy-prompt.md) |
 | AI 分工与诊断—规则—试算—复核循环 | `index.html` 的 `#method`、`ai-value.css` |
 | 四类业务问题的内容与切换 | `business-scenes.js`、`business-scenes.css`，以及 `index.html` 的 `#challenges` 初始内容 |
 | 七张海报的章节、说明、下载与直达链接 | `story.html`、`story.css`、`story.js` |
@@ -42,6 +42,8 @@ git switch -c update-site
 品牌统一使用 **传神智溯**。三产品为 **IPO 数据体检、IPO 数据治理、IPO 问询数据响应**。七张海报顺序固定为 **01 总览 → 02 AI → 03 体检 → 04 治理 → 05 问询 → 06 案例 → 07 合作**。
 
 更新海报后同步生成源码、网页说明、PDF、WebP 和 PNG。保留 `story.html#poster-01` 至 `#poster-07` 的章节含义；批量替换素材时，更新相应资源版本参数，避免访问者看到旧缓存。
+
+第 02 张以 A/B 用料差异为起点，原因仍待核对。修改文案或插图时，保留“AI 找线索与候选解释 → 程序试算 → AI 反查修正 → 专业确认并留痕”的顺序；不能直接将 B 料标为已确认的有效替代。每年 4,000 余条替代关系仅限已交付案例的年度范围，不是图中差异的验证结论。
 
 修改业务场景文案时，同步 `business-scenes.js` 与 `index.html` 的初始场景。保留 `#scene-identity`、`#scene-recipe`、`#scene-price`、`#scene-stock`、`#issue-panel` 等已有分享入口。业务图保持 3:2 完整显示，未确认的差异不要写成已确定的浪费、盘亏或客户损失。
 
