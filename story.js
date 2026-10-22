@@ -1,0 +1,15 @@
+'use strict';
+const chapters=[
+{title:'核心价值',description:'把三年混乱的 ERP 数据，还原为逐品号、可复核的成本明细。每一个结果，都有来路。',alt:'01 核心价值：让每一笔成本，都有据可溯'},
+{title:'客户困境',description:'多套编号、配方与领料不符、入库缺价、手工补录。多层加工环节里，小矛盾会叠加成三年成本数据的难题。',alt:'02 客户困境：ERP 里有数据，三年成本为什么说不清'},
+{title:'还原方法',description:'专项智能体识别问题，规则程序执行计算，每笔调整留下依据。无法解释的差额，单独列示并交企业确认。',alt:'03 还原方法：AI 找问题，规则还原答案'},
+{title:'五项交付',description:'三年逐品号明细、来源说明、调整留痕台账、残差清单和可重跑规则，构成可逐项复核的完整交付。',alt:'04 五项交付：交付数字，也交付数字的来路'},
+{title:'客户实践',description:'一家经券商推荐的多层加工拟 IPO 企业，在 ERP 方案尝试一年未完成后，通过智溯完成数据还原交付。匿名案例，不代表审计或 IPO 结果。',alt:'05 客户实践：一次数据还原，让项目继续向前'},
+{title:'开始合作',description:'从已有系统与数据、生产层级、已知问题和期望节点开始沟通。共同评估，再确认交付范围、服务方式与合同。',alt:'06 开始合作：从现有数据，开始下一步'}
+];
+let current=0;const tabs=[...document.querySelectorAll('[data-chapter]')],poster=document.getElementById('poster-image'),dialog=document.getElementById('poster-dialog');
+function selectChapter(index,focus=false){current=Math.max(0,Math.min(chapters.length-1,index));const d=chapters[current],num=String(current+1).padStart(2,'0');tabs.forEach((b,i)=>{const active=i===current;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1});poster.src=`assets/posters/${num}.webp`;poster.alt=d.alt;document.getElementById('poster-panel').setAttribute('aria-labelledby',tabs[current].id);document.getElementById('poster-counter').textContent=num;document.getElementById('chapter-category').textContent=d.title;document.getElementById('chapter-description').textContent=d.description;document.getElementById('single-download').href=`assets/posters/${num}.pdf`;document.getElementById('poster-prev').disabled=current===0;document.getElementById('poster-next').disabled=current===chapters.length-1;if(focus)tabs[current].focus()}
+tabs.forEach((b,i)=>{b.addEventListener('click',()=>selectChapter(i));b.addEventListener('keydown',e=>{let next=i;if(e.key==='ArrowDown'||e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowUp'||e.key==='ArrowLeft')next=(i+tabs.length-1)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();selectChapter(next,true)})});
+document.getElementById('poster-prev').addEventListener('click',()=>selectChapter(current-1));document.getElementById('poster-next').addEventListener('click',()=>selectChapter(current+1));document.getElementById('expand-poster').addEventListener('click',()=>{const im=document.getElementById('expanded-image');im.src=poster.src;im.alt=poster.alt;dialog.showModal()});document.getElementById('close-poster').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
+document.addEventListener('keydown',e=>{if(dialog.open||document.activeElement.getAttribute('role')==='tab')return;if(e.key==='ArrowRight'){e.preventDefault();selectChapter(current+1)}else if(e.key==='ArrowLeft'){e.preventDefault();selectChapter(current-1)}});
+selectChapter(0);
