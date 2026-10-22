@@ -47,3 +47,18 @@
 /* Keep mobile category labels readable without duplicating the image caption. */
 #business-scenes .pain-tab-copy strong>span{display:inline-block;white-space:nowrap}
 @media(max-width:600px){#business-scenes .pain-tab-copy strong{font-size:14px;line-height:1.7;letter-spacing:0}#business-scenes .pain-tab-copy small{display:none}#business-scenes .pain-tab{min-height:85px;align-items:center}#business-scenes .pain-tab-number{align-self:flex-start;margin-top:5px}}
+
+/* Context fills the desktop column; on small screens it follows the illustration. */
+#business-scenes .pain-layout{grid-template-rows:auto 1fr;column-gap:50px;row-gap:24px}
+#business-scenes .pain-tabs{grid-column:1;grid-row:1}
+#business-scenes .pain-panel{grid-column:2;grid-row:1 / span 2}
+#business-scenes .pain-context{grid-column:1;grid-row:2;min-width:0;padding:0 18px}
+#business-scenes .pain-context dl{margin:0;border-top:1px solid var(--pain-line)}
+#business-scenes .pain-context dl>div{display:grid;grid-template-columns:66px minmax(0,1fr);gap:15px;padding:15px 0;border-bottom:1px solid var(--pain-line)}
+#business-scenes .pain-context dt{margin:2px 0 0;font-size:11px;line-height:1.8;font-weight:600;color:#49678f;white-space:nowrap}
+#business-scenes .pain-context dd{margin:0;min-height:3.6em;font-size:12px;line-height:1.8;color:#64768f;overflow-wrap:anywhere}
+@media(max-width:1150px){#business-scenes .pain-layout{column-gap:32px;row-gap:20px}#business-scenes .pain-context{padding:0 14px}#business-scenes .pain-context dl>div{grid-template-columns:62px minmax(0,1fr);gap:12px;padding:13px 0}#business-scenes .pain-context dt{font-size:10px}#business-scenes .pain-context dd{font-size:11px}}
+@media(max-width:850px){#business-scenes .pain-layout{grid-template-rows:auto auto auto;gap:25px}#business-scenes .pain-tabs{grid-column:1;grid-row:1}#business-scenes .pain-panel{grid-column:1;grid-row:2}#business-scenes .pain-context{grid-column:1;grid-row:3;width:100%;max-width:690px;margin:0 auto;padding:0 2px}#business-scenes .pain-context dl>div{grid-template-columns:80px minmax(0,1fr);gap:20px;padding:15px 0}#business-scenes .pain-context dt{font-size:12px}#business-scenes .pain-context dd{font-size:13px;min-height:0}}
+@media(max-width:600px){#business-scenes .pain-layout{gap:22px}#business-scenes .pain-context{padding:0 1px}#business-scenes .pain-context dl>div{grid-template-columns:66px minmax(0,1fr);gap:14px;padding:16px 0}#business-scenes .pain-context dt{font-size:11px}#business-scenes .pain-context dd{font-size:12px;min-height:3.6em}}
+@media(max-width:360px){#business-scenes .pain-context dl>div{grid-template-columns:60px minmax(0,1fr);gap:10px}#business-scenes .pain-context dt{font-size:10px}#business-scenes .pain-context dd{font-size:11px}}
+@media print{#business-scenes .pain-context{max-width:650px;margin:24px auto 0;padding:0}}

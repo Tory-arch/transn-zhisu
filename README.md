@@ -4,7 +4,7 @@ IPO 成本数据还原服务展示网站。完整静态源码与展示素材，�
 
 - **在线浏览**：[GitHub Pages](https://tory-arch.github.io/transn-zhisu/)
 - **四类业务痛点**：[图片与说明](https://tory-arch.github.io/transn-zhisu/#challenges)
-- **故事海报**：[六张海报](https://tory-arch.github.io/transn-zhisu/story.html)
+- **故事海报**：[七张海报](https://tory-arch.github.io/transn-zhisu/story.html)
 - **原官网地址**：[Sites](https://zhisu-data-clarity.zz8jc7tsh8.chatgpt.site/)
 
 ## 内容
@@ -12,8 +12,9 @@ IPO 成本数据还原服务展示网站。完整静态源码与展示素材，�
 - 服务首页：价值说明、处理方法、五项交付、客户实践、合作方式及常见问题。
 - 四张独立生成的业务痛点图：多套编号、领料偏离配方、入库缺价、库存不符。
 - AI 价值说明：跨单据梳理、100+ 专项智能体分工、规则变化后三年统一重算。
-- 左侧分类切换右侧图片与说明，支持键盘导航和独立链接；手机上分类排为 2×2。
-- 六张故事海报，包含网页图片、单张 PDF 和合订 PDF。
+- 左侧四分类切换右侧图片与说明，支持键盘导航和独立链接；分类下方随场景显示“问题出在哪 / 为什么难查 / 会影响什么”，用细分隔线补充业务解释。
+- 手机上分类排为 2×2，补充说明移到图片和图下文字之后；四张图片保持完整比例，不裁切。
+- 七张故事海报，主线依次为：业务难题 → 为什么用 AI → 专项智能体 → 规则重算 → 交付 → 案例 → 合作；包含网页图片、单张 PDF 和合订 PDF。
 - 销售演示及本地生成的沟通清单。
 
 ## 主要文件
@@ -22,7 +23,7 @@ IPO 成本数据还原服务展示网站。完整静态源码与展示素材，�
 | --- | --- |
 | `index.html` | 官网首页与业务现场入口 |
 | `styles.css`、`app.js` | 官网样式及交互 |
-| `business-scenes.css`、`business-scenes.js` | 四类业务痛点图片切换 |
+| `business-scenes.css`、`business-scenes.js` | 四类业务痛点图片切换与场景业务说明 |
 | `assets/pain-*.png` | 四张蓝白业务场景概念图 |
 | `ai-value.css` | 为什么采用专项 AI 与规则执行 |
 | `story.html`、`story.css`、`story.js` | 故事海报展厅 |

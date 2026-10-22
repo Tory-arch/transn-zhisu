@@ -6,6 +6,11 @@
   const scenes = {
     identity: {
       label: '01 / 多套编号',
+      context: {
+        problem: '同一物料的采购、领料和成本记录，分别记在不同编号下。',
+        reason: '名称相似不等于同一种物料，还要核对规格、单位与品号对照依据。',
+        impact: '编号关系未核清，进、耗、存记录就难以连成可复核的成本链。'
+      },
       title: '同一种物料，跨部门却接不上。',
       description: '采购、生产、财务各用一套编号，同一物料的记录难以串联核对。',
       facts: '采购 <span>MAT-028</span><i>·</i>生产 <span>YL-028A</span><i>·</i>财务 <span>000028</span>',
@@ -14,6 +19,11 @@
     },
     recipe: {
       label: '02 / 领料偏配方',
+      context: {
+        problem: '配方投入与净领料出现 7 kg 差额，两套记录尚未对齐。',
+        reason: '领料、退料和配方分在不同单据，还需确认是否对应同一工单与统计口径。',
+        impact: '差额原因未确认，材料耗用数量及对应成本仍需继续核对。'
+      },
       title: '多出的 7 kg，究竟差在哪里？',
       description: '配方投入 100 kg，净领料 107 kg。差额 7 kg，仍需核对业务原因。',
       facts: '<span>112 kg</span> 领料 − <span>5 kg</span> 退料 = <span>107 kg</span> 净领料',
@@ -22,6 +32,11 @@
     },
     price: {
       label: '03 / 入库缺价',
+      context: {
+        problem: '入库数量已记下，支撑金额计算的单价依据却缺失。',
+        reason: '需沿采购、加工或委外记录回查价格来源，不能只凭数量补上金额。',
+        impact: '上游金额尚未确定，后续半成品与产成品的成本也难以接续核算。'
+      },
       title: '入库有数量，成本却缺了起点。',
       description: '200 kg 已入库，单价仍缺失。价格依据未明确，后续加工成本待接续。',
       facts: '<span>200 kg</span> 入库 × 待确认单价 → 成本待接续',
@@ -30,6 +45,11 @@
     },
     stock: {
       label: '04 / 库存不符',
+      context: {
+        problem: '台账结存与库存记录相差 3 件，差额还缺少业务解释。',
+        reason: '历史单据与手工补录交织，需逐笔核对记录时间、数量和补录依据。',
+        impact: '库存差额未解释，结存数量及对应金额就难以形成完整核对依据。'
+      },
       title: '账上 65 件，库存为何只有 62 件？',
       description: '台账与库存相差 3 件，需核对进耗存及补录依据，原因仍待确认。',
       facts: '<span>65 件</span> 台账 − <span>62 件</span> 库存 = <span>3 件</span> 待核对差额',
@@ -76,6 +96,9 @@
       document.getElementById('pain-title').textContent = scene.title;
       document.getElementById('pain-description').textContent = scene.description;
       document.getElementById('pain-facts').innerHTML = scene.facts;
+      Object.entries(scene.context).forEach(([part, text]) => {
+        document.getElementById(`pain-context-${part}`).textContent = text;
+      });
       image.alt = scene.alt;
       if (image.getAttribute('src') !== scene.image) {
         setImageState('loading');
