@@ -6,6 +6,7 @@
 - **下载可编辑包**：[v1.3.1 完整 ZIP](https://github.com/Tory-arch/transn-zhisu/releases/download/v1.3.1/transn-zhisu-editable-v1.3.1.zip)（无需登录，解压后可修改）
 - **源码仓库**：[Tory-arch/transn-zhisu](https://github.com/Tory-arch/transn-zhisu)
 - **故事海报**：[七张海报](https://tory-arch.github.io/transn-zhisu/story.html)
+- **一页总览**：[HTML 版总览](https://tory-arch.github.io/transn-zhisu/overview.html) · [4K PNG](https://tory-arch.github.io/transn-zhisu/assets/overview/zhisu-overview-4k.png)
 - **参与修改**：[协作指南](CONTRIBUTING.md)（Fork → 本地编辑 → 预览 → Pull Request）
 
 公开浏览和下载不需要 GitHub 账号。希望合入修改时，可登录 GitHub 后 Fork 并提交 Pull Request；直接推送原仓库需要所有者授予写入权限。
@@ -42,6 +43,8 @@ AI 的价值在于读取诊断、梳理线索、推断矛盾成因并提出规�
 
 | 修改内容 | 对应文件 |
 | --- | --- |
+| 一页总览网页（真实文字、业务图、手机自适应） | [overview.html](overview.html)、[overview.css](overview.css)、[overview.js](overview.js) |
+| 一页总览 4K 导出 | [导出脚本与使用说明](design/overview/README.md)；浏览器以 1280×1920 CSS 像素、2 倍像素密度直接渲染为 2560×3840 PNG |
 | 三产品定位、服务范围、首页文案与结构 | [index.html](index.html) |
 | 三产品布局、AI 过程与案例样式 | [products.css](products.css) |
 | 三产品交付切换、产品分享锚点与合作服务预选 | [products.js](products.js) |
@@ -68,7 +71,9 @@ AI 的价值在于读取诊断、梳理线索、推断矛盾成因并提出规�
 python3 -m http.server 8080
 ```
 
-访问 `http://localhost:8080/` 查看首页，访问 `http://localhost:8080/story.html` 查看海报。结束时按 `Ctrl+C`。网站无需数据库或构建工具；资源使用相对路径，兼容 GitHub Pages 的项目地址。
+访问 `http://localhost:8080/` 查看首页，访问 `http://localhost:8080/story.html` 查看海报，访问 `http://localhost:8080/overview.html` 查看一页总览。结束时按 `Ctrl+C`。网站无需数据库或构建工具；资源使用相对路径，兼容 GitHub Pages 的项目地址。
+
+一页总览的文字、数字、图标与流程线由 HTML/CSS/SVG 排版，业务插图复用现有原图的 WebP 版本。电脑端保持整页海报比例，手机端纵向展开。页面可下载 4K PNG，并通过浏览器打印保存 PDF；底部以用户确认的“传神智溯，从复杂数据看清真实业务”品牌标语收尾，不放网址、箭头或咨询入口。它是独立页面，不覆盖官网首页和七张海报。
 
 ## 发布与版本
 

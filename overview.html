@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>传神智溯 · IPO 数据服务一页总览</title>
+  <meta name="description" content="一页了解传神智溯：四类制造业数据难题，IPO 数据体检、数据治理与问询数据响应，以及 AI 追查、程序验证、专业确认的协作方式。">
+  <meta name="theme-color" content="#2468ff">
+  <meta property="og:title" content="传神智溯｜让数据说得清，让追问有依据。">
+  <meta property="og:description" content="四类业务难题，三款数据服务。问题、方法、交付，一页讲清。">
+  <meta property="og:image" content="assets/overview/zhisu-overview-4k.png">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="overview.css?v=1">
+</head>
+<body>
+  <a class="skip-link" href="#overview">跳至服务总览</a>
+  <div class="page-tools" aria-label="页面工具">
+    <a class="back-link" href="index.html"><span aria-hidden="true">←</span> 返回官网</a>
+    <span class="tools-title">传神智溯 · 一页总览</span>
+    <div class="tool-actions">
+      <button class="tool-button print-button" type="button" data-print hidden>打印 / 保存 PDF</button>
+      <a class="tool-button primary" href="assets/overview/zhisu-overview-4k.png" download="传神智溯-一页业务总览-4K.png">下载 4K 海报 <span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+
+  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="icon-document" viewBox="0 0 48 48"><path d="M12 5h18l8 8v29H12a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4Z"/><path d="M29 5v10h9M16 23h14M16 29h14M16 35h10"/></symbol>
+    <symbol id="icon-data" viewBox="0 0 48 48"><ellipse cx="24" cy="11" rx="16" ry="7"/><path d="M8 11v26c0 4 7 7 16 7s16-3 16-7V11M8 24c0 4 7 7 16 7s16-3 16-7M8 34c0 4 7 7 16 7s16-3 16-7"/></symbol>
+    <symbol id="icon-folder" viewBox="0 0 48 48"><path d="M5 12a4 4 0 0 1 4-4h11l5 6h14a4 4 0 0 1 4 4v21a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4Z"/><path d="M5 20h38"/></symbol>
+    <symbol id="icon-calculator" viewBox="0 0 48 48"><rect x="10" y="4" width="28" height="40" rx="4"/><path d="M17 11h14v8H17Z"/><path d="M17 26h2m10 0h2M17 33h2m10 0h2M17 39h2m10 0h2"/></symbol>
+    <symbol id="icon-person" viewBox="0 0 48 48"><circle cx="24" cy="13" r="9"/><path d="M8 44v-6a16 16 0 0 1 32 0v6Z"/></symbol>
+    <symbol id="icon-repeat" viewBox="0 0 48 48"><path d="M41 18A18 18 0 0 0 9 11l-4 7m0-11v11h11M7 30a18 18 0 0 0 32 7l4-7m0 11V30H32"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 48 24"><path d="M2 12h42m-10-9 10 9-10 9"/></symbol>
+  </defs></svg>
+
+  <div class="poster-frame">
+    <main class="overview-canvas" id="overview">
+      <header class="hero">
+        <img class="hero-art" src="assets/service-governance.webp" alt="原料、半成品与产成品，逐级关联到成本记录" width="1536" height="1024" fetchpriority="high">
+        <div class="brand" aria-label="传神智溯">
+          <img src="assets/transn-logo.png" alt="Transn 传神" width="464" height="80">
+          <span class="brand-separator" aria-hidden="true"></span><span class="brand-name">智溯</span>
+        </div>
+        <p class="audience">IPO 数据服务 <span aria-hidden="true">｜</span> 面向拟上市制造企业与券商项目组</p>
+        <h1>让数据说得清，<br><em>让追问有依据。</em></h1>
+        <p class="hero-description">把采购、生产、库存与财务记录，整理成可核对、可重算、可追溯的数据依据。</p>
+      </header>
+
+      <section class="pain-section" aria-labelledby="pain-title">
+        <div class="section-heading"><h2 id="pain-title">从四类业务难题出发</h2><span class="heading-line" aria-hidden="true"></span></div>
+        <div class="pain-grid">
+          <article class="pain-card">
+            <img src="assets/pain-identity.webp" alt="同一叠物料对应采购、生产与财务的三套编号，记录之间无法直接对应" width="1536" height="1024">
+            <h3>同一物料，多套编号</h3><p>采购、生产、财务对不上</p>
+          </article>
+          <article class="pain-card">
+            <img src="assets/material-discrepancy.webp" alt="配方要求 A 料，实际领用 B 料，差异原因仍待核对" width="1448" height="1086">
+            <h3>领料记录，偏离配方</h3><p>投入与产出缺少核对依据</p>
+          </article>
+          <article class="pain-card">
+            <img src="assets/pain-price.webp" alt="原料入库记录缺少价格，后续加工成本的计算链条出现断点" width="1536" height="1024">
+            <h3>入库缺价，成本断层</h3><p>多级加工的成本接不下去</p>
+          </article>
+          <article class="pain-card">
+            <img src="assets/pain-stock.webp" alt="手工补录的库存台账与货架实际记录不一致，差额被标记出来" width="1536" height="1024">
+            <h3>手工补录，库存不符</h3><p>历史单据与库存需重新梳理</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="product-section" aria-labelledby="product-title">
+        <div class="section-heading"><h2 id="product-title">三款产品，把问题推进到可交付的结果</h2><span class="heading-line" aria-hidden="true"></span><p class="section-note">三项服务可单独选择，也可衔接使用。</p></div>
+        <div class="product-grid">
+          <article class="product-card">
+            <div class="product-heading"><span class="product-number">01</span><h3>IPO 数据体检</h3></div>
+            <img class="product-art" src="assets/service-check.webp" alt="通过放大镜交叉比对业务与财务台账，定位异常记录" width="1536" height="1024">
+            <h4>先查清问题在哪里</h4>
+            <p class="product-description">比对业务与财务记录，定位差异、评估影响，明确整改范围。</p>
+            <div class="deliverable"><span class="deliverable-icon"><svg aria-hidden="true"><use href="#icon-document"/></svg></span><div><span class="deliverable-label">你拿到</span><h5>风险体检报告</h5><p>问题清单 · 具体定位 · 整改建议</p></div></div>
+          </article>
+          <article class="product-card">
+            <div class="product-heading"><span class="product-number">02</span><h3>IPO 数据治理</h3></div>
+            <img class="product-art" src="assets/service-governance.webp" alt="从原料到产成品，将每个加工阶段与数量及成本明细逐一对应" width="1536" height="1024">
+            <h4>把历史数量与成本算清</h4>
+            <p class="product-description">梳理编号、配方与单据，从原料到产成品，先核数量，再逐层算成本。</p>
+            <div class="deliverable"><span class="deliverable-icon"><svg aria-hidden="true"><use href="#icon-data"/></svg></span><div><span class="deliverable-label">你拿到</span><h5 class="long-title">三年逐物料进耗存与成本明细</h5><p>调整台账 · 来源说明 · 可重跑规则</p></div></div>
+          </article>
+          <article class="product-card">
+            <div class="product-heading"><span class="product-number">03</span><h3>IPO 问询数据响应</h3></div>
+            <img class="product-art" src="assets/service-inquiry.webp" alt="从具体问询追查来源单据和计算过程，形成有序的数据证据包" width="1536" height="1024">
+            <h4>让每个数字有据可答</h4>
+            <p class="product-description">围绕毛利变化等具体问题，追查来源单据，整理计算过程与数据底稿。</p>
+            <div class="deliverable"><span class="deliverable-icon"><svg aria-hidden="true"><use href="#icon-folder"/></svg></span><div><span class="deliverable-label">你拿到</span><h5>问询数据证据包</h5><p>数据表 · 计算过程 · 来源依据</p></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="ai-section" aria-labelledby="ai-title">
+        <div class="ai-heading"><h2 id="ai-title">为什么用 AI</h2><div><p>百万行记录，难在追因，更难在反复验证。</p><p>跨年度、多层加工的矛盾相互牵连；让 AI 持续追查，让程序批量验证。</p></div></div>
+        <ol class="ai-workflow">
+          <li><svg class="workflow-icon" aria-hidden="true"><use href="#icon-document"/></svg><div><h3>AI 追查成因</h3><p>关联单据，提出候选规则</p></div></li>
+          <li><svg class="workflow-icon" aria-hidden="true"><use href="#icon-calculator"/></svg><div><h3>程序试算重算</h3><p>检查数量、成本与约束</p></div></li>
+          <li><svg class="workflow-icon" aria-hidden="true"><use href="#icon-person"/></svg><div><h3>专业人员确认</h3><p>核对关键事实与计价依据</p></div></li>
+        </ol>
+        <div class="ai-loop"><span class="loop-left" aria-hidden="true"></span><p>判断不成立，就修正规则、重新验证；确认后重算并留痕。</p><span class="loop-right" aria-hidden="true"></span></div>
+      </section>
+
+      <section class="trust-section" aria-labelledby="trust-title">
+        <div class="section-heading"><h2 id="trust-title">为什么选择传神智溯</h2><span class="heading-line" aria-hidden="true"></span></div>
+        <div class="trust-grid">
+          <article><svg aria-hidden="true"><use href="#icon-document"/></svg><div><h3>每笔调整有来路</h3><p>保留前后数值与依据，未解释差额单列</p></div></article>
+          <article><svg aria-hidden="true"><use href="#icon-repeat"/></svg><div><h3>规则可复核、可重跑</h3><p>口径变化后，支持按同一规则重新计算</p></div></article>
+          <article><svg aria-hidden="true"><use href="#icon-data"/></svg><div><h3>本地部署，兼容 ERP</h3><p>数据留在企业内网，无需更换现有系统</p></div></article>
+        </div>
+      </section>
+
+      <section class="case-section" aria-label="单个已交付治理案例数据">
+        <h2>已交付治理案例<span>多层加工制造业</span></h2>
+        <dl class="case-metrics">
+          <div><dt>源数据规模</dt><dd><strong>144–169</strong><span>万行 / 年</span></dd></div>
+          <div><dt>最深加工层级</dt><dd><strong>11</strong><span>层</span></dd></div>
+          <div><dt>数量调整逐条留痕</dt><dd><strong>268,188</strong><span>条</span></dd></div>
+        </dl>
+        <p class="case-note">以上为单个已交付项目数据，<br>不代表所有项目效果。</p>
+      </section>
+
+      <footer class="closing" aria-label="传神智溯品牌理念">
+        <div class="closing-brand"><span>传神智溯</span><small>IPO 数据服务</small></div>
+        <p>从复杂数据<br class="slogan-break">看清真实业务</p>
+      </footer>
+    </main>
+  </div>
+  <p class="page-caption">传神智溯 · IPO 数据体检 / 数据治理 / 问询数据响应</p>
+  <script src="overview.js?v=1" defer></script>
+</body>
+</html>
